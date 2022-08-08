@@ -10,6 +10,14 @@ type Address struct {
 	Geo     *Geo    `json:"geo"`
 }
 
+type AddressInput struct {
+	Street  string    `json:"street"`
+	Suite   string    `json:"suite"`
+	City    string    `json:"city"`
+	Zipcode string    `json:"zipcode"`
+	Geo     *GeoInput `json:"geo"`
+}
+
 type Album struct {
 	UserID *int     `json:"userId"`
 	ID     *int     `json:"id"`
@@ -31,9 +39,68 @@ type Company struct {
 	Bs          *string `json:"bs"`
 }
 
+type CompanyInput struct {
+	Name        string `json:"name"`
+	CatchPhrase string `json:"catchPhrase"`
+	Bs          string `json:"bs"`
+}
+
+type CreateAlbumInput struct {
+	UserID int    `json:"userId"`
+	Title  string `json:"title"`
+}
+
+type CreateCommentInput struct {
+	PostID int    `json:"postId"`
+	Name   string `json:"name"`
+	Email  string `json:"email"`
+	Body   string `json:"body"`
+}
+
+type CreatePhotoInput struct {
+	AlbumID      int    `json:"albumId"`
+	Title        string `json:"title"`
+	URL          string `json:"url"`
+	ThumbnailURL string `json:"thumbnailUrl"`
+}
+
+type CreatePostInput struct {
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	UserID int    `json:"userId"`
+}
+
+type CreateTodoInput struct {
+	UserID    int    `json:"userId"`
+	Title     string `json:"title"`
+	Completed bool   `json:"completed"`
+}
+
+type CreateUserInput struct {
+	Name     string        `json:"name"`
+	Username string        `json:"username"`
+	Email    string        `json:"email"`
+	Address  *AddressInput `json:"address"`
+	Phone    string        `json:"phone"`
+	Website  string        `json:"website"`
+	Company  *CompanyInput `json:"company"`
+}
+
 type Geo struct {
 	Lat *string `json:"lat"`
 	Lng *string `json:"lng"`
+}
+
+type GeoInput struct {
+	Lat string `json:"lat"`
+	Lng string `json:"lng"`
+}
+
+type MutationResponse struct {
+	Code    *int        `json:"code"`
+	Success *bool       `json:"success"`
+	Message *string     `json:"message"`
+	Data    interface{} `json:"data"`
 }
 
 type Photo struct {
@@ -52,11 +119,51 @@ type Post struct {
 	Comments []*Comment `json:"comments"`
 }
 
+type StatusResponse struct {
+	Status string `json:"status"`
+}
+
 type Todo struct {
 	UserID    *int    `json:"userId"`
 	ID        *int    `json:"id"`
 	Title     *string `json:"title"`
 	Completed *bool   `json:"completed"`
+}
+
+type UpdateAlbumInput struct {
+	Title *string `json:"title"`
+}
+
+type UpdateCommentInput struct {
+	Name  *string `json:"name"`
+	Email *string `json:"email"`
+	Body  *string `json:"body"`
+}
+
+type UpdatePhotoInput struct {
+	Title        *string `json:"title"`
+	URL          *string `json:"url"`
+	ThumbnailURL *string `json:"thumbnailUrl"`
+}
+
+type UpdatePostInput struct {
+	Title *string `json:"title"`
+	Body  *string `json:"body"`
+}
+
+type UpdateTodoInput struct {
+	Title     *string `json:"title"`
+	Completed *bool   `json:"completed"`
+}
+
+type UpdateUserInput struct {
+	Name     *string       `json:"name"`
+	UserName *string       `json:"userName"`
+	Email    *string       `json:"email"`
+	Address  *AddressInput `json:"address"`
+	Phone    *string       `json:"phone"`
+	Website  *string       `json:"website"`
+	Company  *CompanyInput `json:"company"`
 }
 
 type User struct {

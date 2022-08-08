@@ -9,9 +9,10 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/rs/cors"
 )
 
-const defaultPort = "4000"
+const defaultPort = "4001"
 
 func main() {
 	port := os.Getenv("PORT")
@@ -21,9 +22,15 @@ func main() {
 
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+	mux := http.NewServeMux()
+	mux.Handle("/", playground.Handler("Graphql playgorund", "/query"))
+	mux.Handle("/query", srv)
 
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:4000"},
+	})
+
+	httpHandler := c.Handler(mux)
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, httpHandler))
 }

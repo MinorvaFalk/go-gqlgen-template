@@ -4,6 +4,7 @@ import "errors"
 
 const (
 	RESTDataSource = "https://jsonplaceholder.typicode.com"
+	ServerStatus   = "server is running"
 )
 
 // Errors

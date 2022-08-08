@@ -8,7 +8,105 @@ import (
 	"fmt"
 	"go-gqlgen-template/graph/generated"
 	"go-gqlgen-template/graph/model"
+	"go-gqlgen-template/utils"
 )
+
+// CreatePost is the resolver for the createPost field.
+func (r *mutationResolver) CreatePost(ctx context.Context, input model.CreatePostInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// UpdatePost is the resolver for the updatePost field.
+func (r *mutationResolver) UpdatePost(ctx context.Context, id int, input model.UpdatePostInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// DeletePost is the resolver for the deletePost field.
+func (r *mutationResolver) DeletePost(ctx context.Context, id int) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// CreateComment is the resolver for the createComment field.
+func (r *mutationResolver) CreateComment(ctx context.Context, input model.CreateCommentInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// UpdateComment is the resolver for the updateComment field.
+func (r *mutationResolver) UpdateComment(ctx context.Context, id int, input model.UpdateCommentInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// DeleteComment is the resolver for the deleteComment field.
+func (r *mutationResolver) DeleteComment(ctx context.Context, id int) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// CreateAlbum is the resolver for the createAlbum field.
+func (r *mutationResolver) CreateAlbum(ctx context.Context, input model.CreateAlbumInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// UpdateAlbum is the resolver for the updateAlbum field.
+func (r *mutationResolver) UpdateAlbum(ctx context.Context, id int, input model.UpdateAlbumInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// DeleteAlbum is the resolver for the deleteAlbum field.
+func (r *mutationResolver) DeleteAlbum(ctx context.Context, id int) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// CreatePhoto is the resolver for the createPhoto field.
+func (r *mutationResolver) CreatePhoto(ctx context.Context, input model.CreatePhotoInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// UpdatePhoto is the resolver for the updatePhoto field.
+func (r *mutationResolver) UpdatePhoto(ctx context.Context, id int, input model.UpdatePhotoInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// DeletePhoto is the resolver for the deletePhoto field.
+func (r *mutationResolver) DeletePhoto(ctx context.Context, id int) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// CreateTodo is the resolver for the createTodo field.
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.CreateTodoInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// UpdateTodo is the resolver for the updateTodo field.
+func (r *mutationResolver) UpdateTodo(ctx context.Context, id int, input model.UpdateTodoInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// DeleteTodo is the resolver for the deleteTodo field.
+func (r *mutationResolver) DeleteTodo(ctx context.Context, id int) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// CreateUser is the resolver for the createUser field.
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.CreateUserInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// UpdateUser is the resolver for the updateUser field.
+func (r *mutationResolver) UpdateUser(ctx context.Context, id int, input model.UpdateUserInput) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// DeleteUser is the resolver for the deleteUser field.
+func (r *mutationResolver) DeleteUser(ctx context.Context, id int) (*model.MutationResponse, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// Status is the resolver for the status field.
+func (r *queryResolver) Status(ctx context.Context) (*model.StatusResponse, error) {
+	return &model.StatusResponse{
+		Status: utils.ServerStatus,
+	}, nil
+}
 
 // GetPosts is the resolver for the getPosts field.
 func (r *queryResolver) GetPosts(ctx context.Context, id *int) ([]*model.Post, error) {
@@ -40,7 +138,11 @@ func (r *queryResolver) GetUsers(ctx context.Context, id *int) ([]*model.User, e
 	panic(fmt.Errorf("not implemented"))
 }
 
+// Mutation returns generated.MutationResolver implementation.
+func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
+
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
+type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
