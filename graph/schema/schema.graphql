@@ -1,0 +1,78 @@
+type Query {
+  getPosts(id: Int): [Post]
+  getComments(id: Int): [Comment]
+  getAlbums(id: Int): [Album]
+  getPhotos(id: Int): [Photo]
+  getTodos(id: Int): [Todo]
+  getUsers(id: Int): [User]
+}
+
+type Post {
+  userId: Int
+  id: Int
+  title: String
+  body: String
+  comments: [Comment]
+}
+
+type Comment {
+  postId: Int
+  id: Int
+  name: String
+  email: String
+  body: String
+}
+
+type Album {
+  userId: Int
+  id: Int
+  title: String
+  photos: [Photo]
+}
+
+type Photo {
+  albumId: Int
+  id: Int,
+  title: String
+  url: String
+  thumbnailUrl: String
+}
+
+type Todo {
+  userId: Int
+  id: Int
+  title: String
+  completed: Boolean
+}
+
+type User {
+  id: Int
+  name: String
+  username: String
+  email: String
+  address: Address
+  phone: String
+  website: String
+  company: Company
+  todos: [Todo]
+  albums: [Album]
+}
+
+type Address {
+  street: String
+  suite: String
+  city: String
+  zipcode: String
+  geo: Geo
+}
+
+type Geo {
+  lat: String
+  lng: String
+}
+
+type Company {
+  name: String
+  catchPhrase: String
+  bs: String
+}
