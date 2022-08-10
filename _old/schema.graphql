@@ -1,0 +1,229 @@
+scalar Any
+
+"Custom directive to force resolver"
+directive @goField(
+	forceResolver: Boolean
+	name: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+type MutationResponse {
+  code: Int
+  success: Boolean
+  message: String
+  data: Any
+}
+
+type StatusResponse {
+  response: String!
+}
+
+type Query {
+  status: StatusResponse
+
+  getPosts(id: Int): [Post]
+  getComments(id: Int): [Comment]
+  getAlbums(id: Int): [Album]
+  getPhotos(id: Int): [Photo]
+  getTodos(id: Int): [Todo]
+  getUsers(id: Int): [User]
+}
+
+type Mutation {
+  ### User Post
+  createPost(input: CreatePostInput!): MutationResponse
+  updatePost(id: Int!, input: UpdatePostInput!): MutationResponse
+  deletePost(id: Int!): MutationResponse
+
+  createComment(input: CreateCommentInput!): MutationResponse
+  updateComment(id: Int!, input: UpdateCommentInput!): MutationResponse
+  deleteComment(id: Int!): MutationResponse
+
+  ### User Album
+  createAlbum(input: CreateAlbumInput!): MutationResponse
+  updateAlbum(id: Int!, input: UpdateAlbumInput!): MutationResponse
+  deleteAlbum(id: Int!): MutationResponse
+
+  createPhoto(input: CreatePhotoInput!): MutationResponse
+  updatePhoto(id: Int!, input: UpdatePhotoInput!): MutationResponse
+  deletePhoto(id: Int!): MutationResponse
+
+  ### User Todo
+  createTodo(input: CreateTodoInput!): MutationResponse
+  updateTodo(id: Int!, input: UpdateTodoInput!): MutationResponse
+  deleteTodo(id: Int!): MutationResponse
+
+  ### User Information
+  createUser(input: CreateUserInput!): MutationResponse
+  updateUser(id: Int!, input: UpdateUserInput!): MutationResponse
+  deleteUser(id: Int!): MutationResponse
+}
+
+### User Post
+type Post {
+  userId: Int
+  id: Int
+  title: String
+  body: String
+  comments: [Comment] @goField(forceResolver: true)
+}
+
+type Comment {
+  postId: Int
+  id: Int
+  name: String
+  email: String
+  body: String
+}
+
+input CreatePostInput {
+  title: String!
+  body: String!
+  userId: Int!
+}
+
+input UpdatePostInput {
+  title: String
+  body: String
+}
+
+input CreateCommentInput {
+  postId: Int!
+  name: String!
+  email: String!
+  body: String!
+}
+
+input UpdateCommentInput {
+  name: String
+  email: String
+  body: String
+}
+
+### User Album
+type Album {
+  userId: Int
+  id: Int
+  title: String
+  photos: [Photo] @goField(forceResolver: true)
+}
+
+type Photo {
+  albumId: Int
+  id: Int,
+  title: String
+  url: String
+  thumbnailUrl: String
+}
+
+input CreateAlbumInput {
+  userId: Int!
+  title: String!
+}
+
+input UpdateAlbumInput {
+  title: String
+}
+
+input CreatePhotoInput {
+  albumId: Int!
+  title: String!
+  url: String!
+  thumbnailUrl: String!
+}
+
+input UpdatePhotoInput {
+  title: String
+  url: String
+  thumbnailUrl: String
+}
+
+### User Todo
+type Todo {
+  userId: Int
+  id: Int
+  title: String
+  completed: Boolean
+}
+
+input CreateTodoInput {
+  userId: Int!
+  title: String!
+  completed: Boolean!
+}
+
+input UpdateTodoInput {
+  title: String
+  completed: Boolean
+}
+
+### User Information
+type User {
+  id: Int
+  name: String
+  username: String
+  email: String
+  address: Address
+  phone: String
+  website: String
+  company: Company
+  todos: [Todo] @goField(forceResolver: true)
+  albums: [Album] @goField(forceResolver: true)
+}
+
+type Address {
+  street: String
+  suite: String
+  city: String
+  zipcode: String
+  geo: Geo
+}
+
+type Geo {
+  lat: String
+  lng: String
+}
+
+type Company {
+  name: String
+  catchPhrase: String
+  bs: String
+}
+
+input CreateUserInput {
+  name: String!
+  username: String!
+  email: String!
+  address: AddressInput!
+  phone: String!
+  website: String!
+  company: CompanyInput!
+}
+
+input AddressInput {
+  street: String!
+  suite: String!
+  city: String!
+  zipcode: String!
+  geo: GeoInput!
+}
+
+input GeoInput {
+  lat: String!
+  lng: String!
+}
+
+input CompanyInput {
+  name: String!
+  catchPhrase: String!
+  bs: String!
+}
+
+input UpdateUserInput {
+  name: String
+  userName: String
+  email: String
+  address: AddressInput
+  phone: String
+  website: String
+  company: CompanyInput
+}

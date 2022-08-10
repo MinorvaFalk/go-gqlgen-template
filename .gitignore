@@ -29,6 +29,3 @@ go.work
 # Ignore log
 logs
 *.log
-
-# Ignore all folder and files that start with _
-_*/
