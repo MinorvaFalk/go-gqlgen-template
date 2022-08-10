@@ -51,6 +51,14 @@ func (uc *UserCreate) SetWebsite(s string) *UserCreate {
 	return uc
 }
 
+// SetNillableWebsite sets the "website" field if the given value is not nil.
+func (uc *UserCreate) SetNillableWebsite(s *string) *UserCreate {
+	if s != nil {
+		uc.SetWebsite(*s)
+	}
+	return uc
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (uc *UserCreate) SetCreatedAt(t time.Time) *UserCreate {
 	uc.mutation.SetCreatedAt(t)
@@ -204,9 +212,6 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.Phone(); !ok {
 		return &ValidationError{Name: "phone", err: errors.New(`ent: missing required field "User.phone"`)}
-	}
-	if _, ok := uc.mutation.Website(); !ok {
-		return &ValidationError{Name: "website", err: errors.New(`ent: missing required field "User.website"`)}
 	}
 	if _, ok := uc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "User.created_at"`)}

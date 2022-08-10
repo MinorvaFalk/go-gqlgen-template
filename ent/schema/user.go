@@ -25,7 +25,7 @@ func (User) Fields() []ent.Field {
 			NotEmpty(),
 		field.String("email"),
 		field.String("phone"),
-		field.String("website"),
+		field.String("website").Optional(),
 		field.Time("created_at").
 			Default(time.Now()).
 			SchemaType(map[string]string{

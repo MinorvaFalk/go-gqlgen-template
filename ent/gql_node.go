@@ -51,7 +51,7 @@ func (t *Todo) Node(ctx context.Context) (node *Node, err error) {
 	node = &Node{
 		ID:     t.ID,
 		Type:   "Todo",
-		Fields: make([]*Field, 3),
+		Fields: make([]*Field, 5),
 		Edges:  make([]*Edge, 1),
 	}
 	var buf []byte
@@ -77,6 +77,22 @@ func (t *Todo) Node(ctx context.Context) (node *Node, err error) {
 	node.Fields[2] = &Field{
 		Type:  "bool",
 		Name:  "completed",
+		Value: string(buf),
+	}
+	if buf, err = json.Marshal(t.CreatedAt); err != nil {
+		return nil, err
+	}
+	node.Fields[3] = &Field{
+		Type:  "time.Time",
+		Name:  "created_at",
+		Value: string(buf),
+	}
+	if buf, err = json.Marshal(t.UpdatedAt); err != nil {
+		return nil, err
+	}
+	node.Fields[4] = &Field{
+		Type:  "time.Time",
+		Name:  "updated_at",
 		Value: string(buf),
 	}
 	node.Edges[0] = &Edge{

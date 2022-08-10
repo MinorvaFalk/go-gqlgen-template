@@ -23,6 +23,14 @@ func init() {
 	todoDescCompleted := todoFields[2].Descriptor()
 	// todo.DefaultCompleted holds the default value on creation for the completed field.
 	todo.DefaultCompleted = todoDescCompleted.Default.(bool)
+	// todoDescCreatedAt is the schema descriptor for created_at field.
+	todoDescCreatedAt := todoFields[3].Descriptor()
+	// todo.DefaultCreatedAt holds the default value on creation for the created_at field.
+	todo.DefaultCreatedAt = todoDescCreatedAt.Default.(time.Time)
+	// todoDescUpdatedAt is the schema descriptor for updated_at field.
+	todoDescUpdatedAt := todoFields[4].Descriptor()
+	// todo.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	todo.DefaultUpdatedAt = todoDescUpdatedAt.Default.(func() time.Time)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescName is the schema descriptor for name field.

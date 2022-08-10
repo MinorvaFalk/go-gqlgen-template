@@ -7,9 +7,32 @@ type User {
     website: String
     createAt: String!
     updateAt: String!
+    todo: [Todo] @goField(forceResolver: true)
+}
+
+input CreateUserInput {
+    id: ID!
+    name: String!
+    username: String!
+    email: String!
+    phone: String!
+    website: String
+}
+
+input UpdateUserInput {
+    name: String
+    username: String
+    email: String
+    phone: String
+    website: String
 }
 
 extend type Query {
-    getUser(id: ID): User
+    getUser(id: ID!): User
     allUser: [User]
+}
+
+extend type Mutation {
+    addUser(input: CreateUserInput!): MutationResponse!
+    updateUser(input: UpdateUserInput!): MutationResponse!
 }

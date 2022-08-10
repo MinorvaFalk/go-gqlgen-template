@@ -611,6 +611,20 @@ func WebsiteHasSuffix(v string) predicate.User {
 	})
 }
 
+// WebsiteIsNil applies the IsNil predicate on the "website" field.
+func WebsiteIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldWebsite)))
+	})
+}
+
+// WebsiteNotNil applies the NotNil predicate on the "website" field.
+func WebsiteNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldWebsite)))
+	})
+}
+
 // WebsiteEqualFold applies the EqualFold predicate on the "website" field.
 func WebsiteEqualFold(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {

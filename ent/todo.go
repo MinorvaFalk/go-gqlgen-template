@@ -7,6 +7,7 @@ import (
 	"go-gqlgen-template/ent/todo"
 	"go-gqlgen-template/ent/user"
 	"strings"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 )
@@ -22,6 +23,10 @@ type Todo struct {
 	Title string `json:"title,omitempty"`
 	// Completed holds the value of the "completed" field.
 	Completed bool `json:"completed,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the TodoQuery when eager-loading is set.
 	Edges TodoEdges `json:"edges"`
@@ -62,6 +67,8 @@ func (*Todo) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullInt64)
 		case todo.FieldTitle:
 			values[i] = new(sql.NullString)
+		case todo.FieldCreatedAt, todo.FieldUpdatedAt:
+			values[i] = new(sql.NullTime)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Todo", columns[i])
 		}
@@ -100,6 +107,18 @@ func (t *Todo) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field completed", values[i])
 			} else if value.Valid {
 				t.Completed = value.Bool
+			}
+		case todo.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				t.CreatedAt = value.Time
+			}
+		case todo.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				t.UpdatedAt = value.Time
 			}
 		}
 	}
@@ -142,6 +161,12 @@ func (t *Todo) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("completed=")
 	builder.WriteString(fmt.Sprintf("%v", t.Completed))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(t.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(t.UpdatedAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }

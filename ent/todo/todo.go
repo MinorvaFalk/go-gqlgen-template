@@ -2,6 +2,10 @@
 
 package todo
 
+import (
+	"time"
+)
+
 const (
 	// Label holds the string label denoting the todo type in the database.
 	Label = "todo"
@@ -13,6 +17,10 @@ const (
 	FieldTitle = "title"
 	// FieldCompleted holds the string denoting the completed field in the database.
 	FieldCompleted = "completed"
+	// FieldCreatedAt holds the string denoting the created_at field in the database.
+	FieldCreatedAt = "created_at"
+	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
+	FieldUpdatedAt = "updated_at"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
 	// Table holds the table name of the todo in the database.
@@ -32,6 +40,8 @@ var Columns = []string{
 	FieldUserID,
 	FieldTitle,
 	FieldCompleted,
+	FieldCreatedAt,
+	FieldUpdatedAt,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -49,4 +59,8 @@ var (
 	DefaultTitle string
 	// DefaultCompleted holds the default value on creation for the "completed" field.
 	DefaultCompleted bool
+	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
+	DefaultCreatedAt time.Time
+	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
+	DefaultUpdatedAt func() time.Time
 )

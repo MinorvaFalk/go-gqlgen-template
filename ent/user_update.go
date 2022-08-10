@@ -58,6 +58,20 @@ func (uu *UserUpdate) SetWebsite(s string) *UserUpdate {
 	return uu
 }
 
+// SetNillableWebsite sets the "website" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableWebsite(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetWebsite(*s)
+	}
+	return uu
+}
+
+// ClearWebsite clears the value of the "website" field.
+func (uu *UserUpdate) ClearWebsite() *UserUpdate {
+	uu.mutation.ClearWebsite()
+	return uu
+}
+
 // AddTodoIDs adds the "todo" edge to the Todo entity by IDs.
 func (uu *UserUpdate) AddTodoIDs(ids ...int) *UserUpdate {
 	uu.mutation.AddTodoIDs(ids...)
@@ -227,6 +241,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldWebsite,
 		})
 	}
+	if uu.mutation.WebsiteCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldWebsite,
+		})
+	}
 	if uu.mutation.TodoCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
@@ -327,6 +347,20 @@ func (uuo *UserUpdateOne) SetPhone(s string) *UserUpdateOne {
 // SetWebsite sets the "website" field.
 func (uuo *UserUpdateOne) SetWebsite(s string) *UserUpdateOne {
 	uuo.mutation.SetWebsite(s)
+	return uuo
+}
+
+// SetNillableWebsite sets the "website" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableWebsite(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetWebsite(*s)
+	}
+	return uuo
+}
+
+// ClearWebsite clears the value of the "website" field.
+func (uuo *UserUpdateOne) ClearWebsite() *UserUpdateOne {
+	uuo.mutation.ClearWebsite()
 	return uuo
 }
 
@@ -526,6 +560,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldWebsite,
+		})
+	}
+	if uuo.mutation.WebsiteCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldWebsite,
 		})
 	}
