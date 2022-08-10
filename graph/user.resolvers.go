@@ -29,7 +29,7 @@ func (r *queryResolver) GetUser(ctx context.Context, id *string) (*ent.User, err
 
 // AllUser is the resolver for the allUser field.
 func (r *queryResolver) AllUser(ctx context.Context) ([]*ent.User, error) {
-	u, err := r.client.User.Query().All(ctx)
+	u, err := r.client.User.Query().Order(ent.Asc(user.FieldID)).All(ctx)
 	if err != nil {
 		return nil, err
 	}
