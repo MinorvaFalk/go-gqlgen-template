@@ -13,24 +13,31 @@ import (
 
 var C config
 
-type config struct {
-	// Database Configuration
-	DBHost     string `mapstructure:"DB_HOST"`
-	DBUser     string `mapstructure:"DB_USERNAME"`
-	DBPassword string `mapstructure:"DB_PASSWORD"`
-	DBName     string `mapstructure:"DB_NAME"`
-	DBPort     string `mapstructure:"DB_PORT"`
-
-	// Endpoint configuration
-	Port string `mapstructure:"PORT"`
+type ConfigOption struct {
+	AppEnv string
 }
 
-func ReadConfig() {
+type config struct {
+	Database struct {
+		DBHost     string `mapstructure:"host"`
+		DBPort     string `mapstructure:"port"`
+		DBName     string `mapstructure:"dbname"`
+		DBUser     string `mapstructure:"user"`
+		DBPassword string `mapstructure:"password"`
+	}
+
+	Server struct {
+		Port string `mapstructure:"port"`
+	}
+}
+
+func ReadConfig(option ConfigOption) {
 	Config := &C
 
-	viper.AddConfigPath(filepath.Join(rootDir(), "db"))
-	viper.SetConfigName("db")
-	viper.SetConfigType("env")
+	viper.AddConfigPath(filepath.Join(rootDir(), "config"))
+	viper.SetConfigName("config")
+
+	viper.SetConfigType("yml")
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {

@@ -14,7 +14,7 @@ type Todo struct {
 // Fields of the Todo.
 func (Todo) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int("user_id"),
+		field.Int("user_id").Optional(),
 		field.String("title").Default(""),
 		field.Bool("completed").Default(false),
 	}
