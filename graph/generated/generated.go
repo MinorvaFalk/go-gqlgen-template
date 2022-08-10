@@ -37,8 +37,11 @@ type Config struct {
 }
 
 type ResolverRoot interface {
+	Album() AlbumResolver
 	Mutation() MutationResolver
+	Post() PostResolver
 	Query() QueryResolver
+	User() UserResolver
 }
 
 type DirectiveRoot struct {
@@ -135,7 +138,7 @@ type ComplexityRoot struct {
 	}
 
 	StatusResponse struct {
-		Status func(childComplexity int) int
+		Response func(childComplexity int) int
 	}
 
 	Todo struct {
@@ -163,6 +166,9 @@ type ComplexityRoot struct {
 	}
 }
 
+type AlbumResolver interface {
+	Photos(ctx context.Context, obj *model.Album) ([]*model.Photo, error)
+}
 type MutationResolver interface {
 	CreatePost(ctx context.Context, input model.CreatePostInput) (*model.MutationResponse, error)
 	UpdatePost(ctx context.Context, id int, input model.UpdatePostInput) (*model.MutationResponse, error)
@@ -183,6 +189,9 @@ type MutationResolver interface {
 	UpdateUser(ctx context.Context, id int, input model.UpdateUserInput) (*model.MutationResponse, error)
 	DeleteUser(ctx context.Context, id int) (*model.MutationResponse, error)
 }
+type PostResolver interface {
+	Comments(ctx context.Context, obj *model.Post) ([]*model.Comment, error)
+}
 type QueryResolver interface {
 	Status(ctx context.Context) (*model.StatusResponse, error)
 	GetPosts(ctx context.Context, id *int) ([]*model.Post, error)
@@ -191,6 +200,10 @@ type QueryResolver interface {
 	GetPhotos(ctx context.Context, id *int) ([]*model.Photo, error)
 	GetTodos(ctx context.Context, id *int) ([]*model.Todo, error)
 	GetUsers(ctx context.Context, id *int) ([]*model.User, error)
+}
+type UserResolver interface {
+	Todos(ctx context.Context, obj *model.User) ([]*model.Todo, error)
+	Albums(ctx context.Context, obj *model.User) ([]*model.Album, error)
 }
 
 type executableSchema struct {
@@ -741,12 +754,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.__resolve__service(childComplexity), true
 
-	case "StatusResponse.status":
-		if e.complexity.StatusResponse.Status == nil {
+	case "StatusResponse.response":
+		if e.complexity.StatusResponse.Response == nil {
 			break
 		}
 
-		return e.complexity.StatusResponse.Status(childComplexity), true
+		return e.complexity.StatusResponse.Response(childComplexity), true
 
 	case "Todo.completed":
 		if e.complexity.Todo.Completed == nil {
@@ -938,6 +951,12 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 var sources = []*ast.Source{
 	{Name: "../schema/schema.graphql", Input: `scalar Any
 
+"Custom directive to force resolver"
+directive @goField(
+	forceResolver: Boolean
+	name: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
 type MutationResponse {
   code: Int
   success: Boolean
@@ -946,7 +965,7 @@ type MutationResponse {
 }
 
 type StatusResponse {
-  status: String!
+  response: String!
 }
 
 type Query {
@@ -961,6 +980,7 @@ type Query {
 }
 
 type Mutation {
+  ### User Post
   createPost(input: CreatePostInput!): MutationResponse
   updatePost(id: Int!, input: UpdatePostInput!): MutationResponse
   deletePost(id: Int!): MutationResponse
@@ -969,6 +989,7 @@ type Mutation {
   updateComment(id: Int!, input: UpdateCommentInput!): MutationResponse
   deleteComment(id: Int!): MutationResponse
 
+  ### User Album
   createAlbum(input: CreateAlbumInput!): MutationResponse
   updateAlbum(id: Int!, input: UpdateAlbumInput!): MutationResponse
   deleteAlbum(id: Int!): MutationResponse
@@ -977,13 +998,32 @@ type Mutation {
   updatePhoto(id: Int!, input: UpdatePhotoInput!): MutationResponse
   deletePhoto(id: Int!): MutationResponse
 
+  ### User Todo
   createTodo(input: CreateTodoInput!): MutationResponse
   updateTodo(id: Int!, input: UpdateTodoInput!): MutationResponse
   deleteTodo(id: Int!): MutationResponse
 
+  ### User Information
   createUser(input: CreateUserInput!): MutationResponse
   updateUser(id: Int!, input: UpdateUserInput!): MutationResponse
   deleteUser(id: Int!): MutationResponse
+}
+
+### User Post
+type Post {
+  userId: Int
+  id: Int
+  title: String
+  body: String
+  comments: [Comment] @goField(forceResolver: true)
+}
+
+type Comment {
+  postId: Int
+  id: Int
+  name: String
+  email: String
+  body: String
 }
 
 input CreatePostInput {
@@ -1010,6 +1050,22 @@ input UpdateCommentInput {
   body: String
 }
 
+### User Album
+type Album {
+  userId: Int
+  id: Int
+  title: String
+  photos: [Photo] @goField(forceResolver: true)
+}
+
+type Photo {
+  albumId: Int
+  id: Int,
+  title: String
+  url: String
+  thumbnailUrl: String
+}
+
 input CreateAlbumInput {
   userId: Int!
   title: String!
@@ -1032,6 +1088,14 @@ input UpdatePhotoInput {
   thumbnailUrl: String
 }
 
+### User Todo
+type Todo {
+  userId: Int
+  id: Int
+  title: String
+  completed: Boolean
+}
+
 input CreateTodoInput {
   userId: Int!
   title: String!
@@ -1041,6 +1105,39 @@ input CreateTodoInput {
 input UpdateTodoInput {
   title: String
   completed: Boolean
+}
+
+### User Information
+type User {
+  id: Int
+  name: String
+  username: String
+  email: String
+  address: Address
+  phone: String
+  website: String
+  company: Company
+  todos: [Todo] @goField(forceResolver: true)
+  albums: [Album] @goField(forceResolver: true)
+}
+
+type Address {
+  street: String
+  suite: String
+  city: String
+  zipcode: String
+  geo: Geo
+}
+
+type Geo {
+  lat: String
+  lng: String
+}
+
+type Company {
+  name: String
+  catchPhrase: String
+  bs: String
 }
 
 input CreateUserInput {
@@ -1080,76 +1177,6 @@ input UpdateUserInput {
   phone: String
   website: String
   company: CompanyInput
-}
-
-type Post {
-  userId: Int
-  id: Int
-  title: String
-  body: String
-  comments: [Comment]
-}
-
-type Comment {
-  postId: Int
-  id: Int
-  name: String
-  email: String
-  body: String
-}
-
-type Album {
-  userId: Int
-  id: Int
-  title: String
-  photos: [Photo]
-}
-
-type Photo {
-  albumId: Int
-  id: Int,
-  title: String
-  url: String
-  thumbnailUrl: String
-}
-
-type Todo {
-  userId: Int
-  id: Int
-  title: String
-  completed: Boolean
-}
-
-type User {
-  id: Int
-  name: String
-  username: String
-  email: String
-  address: Address
-  phone: String
-  website: String
-  company: Company
-  todos: [Todo]
-  albums: [Album]
-}
-
-type Address {
-  street: String
-  suite: String
-  city: String
-  zipcode: String
-  geo: Geo
-}
-
-type Geo {
-  lat: String
-  lng: String
-}
-
-type Company {
-  name: String
-  catchPhrase: String
-  bs: String
 }`, BuiltIn: false},
 	{Name: "../../federation/directives.graphql", Input: `
 	scalar _Any
@@ -1993,7 +2020,7 @@ func (ec *executionContext) _Album_photos(ctx context.Context, field graphql.Col
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Photos, nil
+		return ec.resolvers.Album().Photos(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2011,8 +2038,8 @@ func (ec *executionContext) fieldContext_Album_photos(ctx context.Context, field
 	fc = &graphql.FieldContext{
 		Object:     "Album",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "albumId":
@@ -4105,7 +4132,7 @@ func (ec *executionContext) _Post_comments(ctx context.Context, field graphql.Co
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Comments, nil
+		return ec.resolvers.Post().Comments(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4123,8 +4150,8 @@ func (ec *executionContext) fieldContext_Post_comments(ctx context.Context, fiel
 	fc = &graphql.FieldContext{
 		Object:     "Post",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "postId":
@@ -4180,8 +4207,8 @@ func (ec *executionContext) fieldContext_Query_status(ctx context.Context, field
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
-			case "status":
-				return ec.fieldContext_StatusResponse_status(ctx, field)
+			case "response":
+				return ec.fieldContext_StatusResponse_response(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type StatusResponse", field.Name)
 		},
@@ -4756,8 +4783,8 @@ func (ec *executionContext) fieldContext_Query___schema(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _StatusResponse_status(ctx context.Context, field graphql.CollectedField, obj *model.StatusResponse) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_StatusResponse_status(ctx, field)
+func (ec *executionContext) _StatusResponse_response(ctx context.Context, field graphql.CollectedField, obj *model.StatusResponse) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_StatusResponse_response(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -4770,7 +4797,7 @@ func (ec *executionContext) _StatusResponse_status(ctx context.Context, field gr
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Status, nil
+		return obj.Response, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4787,7 +4814,7 @@ func (ec *executionContext) _StatusResponse_status(ctx context.Context, field gr
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_StatusResponse_status(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_StatusResponse_response(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "StatusResponse",
 		Field:      field,
@@ -5326,7 +5353,7 @@ func (ec *executionContext) _User_todos(ctx context.Context, field graphql.Colle
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Todos, nil
+		return ec.resolvers.User().Todos(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -5344,8 +5371,8 @@ func (ec *executionContext) fieldContext_User_todos(ctx context.Context, field g
 	fc = &graphql.FieldContext{
 		Object:     "User",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "userId":
@@ -5377,7 +5404,7 @@ func (ec *executionContext) _User_albums(ctx context.Context, field graphql.Coll
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Albums, nil
+		return ec.resolvers.User().Albums(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -5395,8 +5422,8 @@ func (ec *executionContext) fieldContext_User_albums(ctx context.Context, field 
 	fc = &graphql.FieldContext{
 		Object:     "User",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "userId":
@@ -8008,9 +8035,22 @@ func (ec *executionContext) _Album(ctx context.Context, sel ast.SelectionSet, ob
 			out.Values[i] = ec._Album_title(ctx, field, obj)
 
 		case "photos":
+			field := field
 
-			out.Values[i] = ec._Album_photos(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Album_photos(ctx, field, obj)
+				return res
+			}
 
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -8368,9 +8408,22 @@ func (ec *executionContext) _Post(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = ec._Post_body(ctx, field, obj)
 
 		case "comments":
+			field := field
 
-			out.Values[i] = ec._Post_comments(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Post_comments(ctx, field, obj)
+				return res
+			}
 
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -8597,9 +8650,9 @@ func (ec *executionContext) _StatusResponse(ctx context.Context, sel ast.Selecti
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("StatusResponse")
-		case "status":
+		case "response":
 
-			out.Values[i] = ec._StatusResponse_status(ctx, field, obj)
+			out.Values[i] = ec._StatusResponse_response(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
 				invalids++
@@ -8695,13 +8748,39 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = ec._User_company(ctx, field, obj)
 
 		case "todos":
+			field := field
 
-			out.Values[i] = ec._User_todos(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._User_todos(ctx, field, obj)
+				return res
+			}
 
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		case "albums":
+			field := field
 
-			out.Values[i] = ec._User_albums(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._User_albums(ctx, field, obj)
+				return res
+			}
 
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

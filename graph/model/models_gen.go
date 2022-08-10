@@ -120,7 +120,7 @@ type Post struct {
 }
 
 type StatusResponse struct {
-	Status string `json:"status"`
+	Response string `json:"response"`
 }
 
 type Todo struct {

@@ -27,7 +27,11 @@ func main() {
 	mux.Handle("/query", srv)
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:4000"},
+		AllowedOrigins: []string{
+			"http://localhost:4000",
+			"https://studio.apollographql.com",
+		},
+		AllowCredentials: true,
 	})
 
 	httpHandler := c.Handler(mux)

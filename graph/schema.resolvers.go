@@ -11,6 +11,11 @@ import (
 	"go-gqlgen-template/utils"
 )
 
+// Photos is the resolver for the photos field.
+func (r *albumResolver) Photos(ctx context.Context, obj *model.Album) ([]*model.Photo, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
 // CreatePost is the resolver for the createPost field.
 func (r *mutationResolver) CreatePost(ctx context.Context, input model.CreatePostInput) (*model.MutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
@@ -101,10 +106,15 @@ func (r *mutationResolver) DeleteUser(ctx context.Context, id int) (*model.Mutat
 	panic(fmt.Errorf("not implemented"))
 }
 
+// Comments is the resolver for the comments field.
+func (r *postResolver) Comments(ctx context.Context, obj *model.Post) ([]*model.Comment, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
 // Status is the resolver for the status field.
 func (r *queryResolver) Status(ctx context.Context) (*model.StatusResponse, error) {
 	return &model.StatusResponse{
-		Status: utils.ServerStatus,
+		Response: utils.ServerStatus,
 	}, nil
 }
 
@@ -138,11 +148,33 @@ func (r *queryResolver) GetUsers(ctx context.Context, id *int) ([]*model.User, e
 	panic(fmt.Errorf("not implemented"))
 }
 
+// Todos is the resolver for the todos field.
+func (r *userResolver) Todos(ctx context.Context, obj *model.User) ([]*model.Todo, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// Albums is the resolver for the albums field.
+func (r *userResolver) Albums(ctx context.Context, obj *model.User) ([]*model.Album, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// Album returns generated.AlbumResolver implementation.
+func (r *Resolver) Album() generated.AlbumResolver { return &albumResolver{r} }
+
 // Mutation returns generated.MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
+
+// Post returns generated.PostResolver implementation.
+func (r *Resolver) Post() generated.PostResolver { return &postResolver{r} }
 
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
+// User returns generated.UserResolver implementation.
+func (r *Resolver) User() generated.UserResolver { return &userResolver{r} }
+
+type albumResolver struct{ *Resolver }
 type mutationResolver struct{ *Resolver }
+type postResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+type userResolver struct{ *Resolver }
