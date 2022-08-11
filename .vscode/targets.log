@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Aug 10 08:16:46 2022
+# Make data base, printed on Thu Aug 11 14:06:58 2022
 
 # Variables
 
@@ -17,29 +17,36 @@ FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
 # environment
 SYSTEMDRIVE = C:
 # environment
+JAVA_HOME = C:\Program Files\Java\jdk-15.0.1
+# environment
 LC_ALL = C
 # environment
-USERPROFILE = C:\Users\Minorva
+USERPROFILE = C:\Users\aurelius.wang
 # environment
-LOCALAPPDATA = C:\Users\Minorva\AppData\Local
+LOCALAPPDATA = C:\Users\aurelius.wang\AppData\Local
 # environment
-VSCODE_CWD = C:\Users\Minorva\AppData\Local\Programs\Microsoft VS Code
+VSCODE_CWD = C:\Users\aurelius.wang\AppData\Local\Programs\Microsoft VS Code
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
-SYSTEMROOT = C:\Windows
+SYSTEMROOT = C:\WINDOWS
 # environment
 PROCESSOR_LEVEL = 6
 # environment
-PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
 # default
 MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
 # environment
-GOPATH = C:\Users\Minorva\go
-# automatic
-@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+USERDNSDOMAIN = ENSEVAL.COM
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_15760_GJAAFAFUNULHDEKH
+GOPATH = C:\Users\aurelius.wang\go
+# environment
+PTSMINSTALLPATH_X86 = c:\Program Files (x86)\HP\HP ProtectTools Security Manager\Bin\
+# automatic
+@D = $(patsubst %/,%, 
+$(patsubst %\,%,$(dir $@)))
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_6432_FYSZYFFHTNZMFHZH
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -53,13 +60,13 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\Minorva\AppData\Roaming\Code\CachedData\da76f93349a72022ca4670c1b84860304616aaa2
+VSCODE_CODE_CACHE_PATH = C:\Users\aurelius.wang\AppData\Roaming\Code\CachedData\6d9b74a70ca9c7733b29f0456fd8195364076dda
 # environment
 LANG = C
 # default
 .LOADED := 
 # environment
-TMP = C:\Users\Minorva\AppData\Local\Temp
+TMP = C:\Users\AURELI~1.WAN\AppData\Local\Temp
 # default
 .INCLUDE_DIRS = .
 # environment
@@ -67,9 +74,9 @@ PROCESSOR_ARCHITEW6432 = AMD64
 # makefile
 MAKEFLAGS = pqrR
 # environment
-ONEDRIVE = C:\Users\Minorva\OneDrive
+ONEDRIVE = C:\Users\aurelius.wang\OneDrive
 # makefile
-CURDIR := d:/Projects/golang/go-gqlgen-template
+CURDIR := c:/Users/aurelius.wang/work/go-gqlgen-template
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
@@ -89,17 +96,17 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 15760
+VSCODE_PID = 6432
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
+# environment
+ONLINESERVICES = Online Services
 # automatic
 *F = $(notdir $*)
 # automatic
 <D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
-# environment
-ONEDRIVECONSUMER = C:\Users\Minorva\OneDrive
 # default
 MAKE_HOST := Windows32
 # environment
@@ -107,25 +114,25 @@ PROGRAMDATA = C:\ProgramData
 # default
 SHELL := sh.exe
 # environment
-HOMEPATH = \Users\Minorva
+HOMEPATH = \Users\aurelius.wang
 # default
 MAKECMDGOALS := all
 # environment
 DRIVERDATA = C:\Windows\System32\Drivers\DriverData
 # environment
-COMSPEC = C:\Windows\system32\cmd.exe
+COMSPEC = C:\WINDOWS\system32\cmd.exe
 # environment
-WINDIR = C:\Windows
+WINDIR = C:\WINDOWS
 # environment
 MAKELEVEL := 0
-# default
-MAKE = $(MAKE_COMMAND)
 # environment
-PATH = C:\Python310\Scripts\;C:\Python310\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\Go\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files (x86)\dotnet\;C:\Program Files\nodejs\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\PostgreSQL\14\bin;C:\Users\Minorva\AppData\Local\Microsoft\WindowsApps;;C:\Users\Minorva\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Minorva\go\bin;C:\Users\Minorva\AppData\Roaming\npm
+MAKE = C:\Program Files (x86)\GnuWin32\bin\make.exe
+# environment
+PATH = C:\Python310\Scripts\;C:\Python310\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python27\;C:\Python27\Scripts;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\openjdk-8u262-b10\bin;C:\Program Files\PuTTY\;C:\Program Files\Go\bin;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\PostgreSQL\13\bin;C:\Users\aurelius.wang\AppData\Local\Microsoft\WindowsApps;;C:\Users\aurelius.wang\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\aurelius.wang\go\bin;C:\Users\aurelius.wang\AppData\Roaming\npm
 # environment
 ZES_ENABLE_SYSMAN = 1
 # environment
-COMPUTERNAME = DESKTOP-LUMVFSA
+COMPUTERNAME = EHODBSN026
 # default
 MAKEFILES := 
 # automatic
@@ -133,11 +140,11 @@ MAKEFILES :=
 # environment
 PROMPT = $P$G
 # environment
-CHOCOLATEYLASTPATHUPDATE = 132965413602807859
+PTSMINSTALLPATH = c:\Program Files\HP\HP ProtectTools Security Manager\Bin\
 # environment
-LOGONSERVER = \\DESKTOP-LUMVFSA
+LOGONSERVER = \\INF-ADDC-01
 # environment
-USERNAME = Minorva
+USERNAME = aurelius.wang
 # environment
 COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
 # automatic
@@ -151,33 +158,33 @@ PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-USERDOMAIN = DESKTOP-LUMVFSA
+USERDOMAIN = ENSEVAL
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
 OS = Windows_NT
 # makefile
-.DEFAULT_GOAL := 
+.DEFAULT_GOAL := start
 # default
 MAKE_VERSION := 4.3
 # environment
-SDL_AUDIODRIVER = directsound
+PLATFORMCODE = AN
 # environment
 PROGRAMFILES(X86) = C:\Program Files (x86)
 # environment
-USERDOMAIN_ROAMINGPROFILE = DESKTOP-LUMVFSA
+USERDOMAIN_ROAMINGPROFILE = ENSEVAL
 # environment
-NUMBER_OF_PROCESSORS = 12
+NUMBER_OF_PROCESSORS = 8
 # environment
 PUBLIC = C:\Users\Public
 # environment
-APPDATA = C:\Users\Minorva\AppData\Roaming
+APPDATA = C:\Users\aurelius.wang\AppData\Roaming
 # environment
 HOMEDRIVE = C:
 # environment
 PROCESSOR_ARCHITECTURE = x86
 # environment
-GOMODCACHE = C:\Users\Minorva\go\pkg\mod
+GOMODCACHE = C:\Users\aurelius.wang\go\pkg\mod
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -185,9 +192,9 @@ COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-TEMP = C:\Users\Minorva\AppData\Local\Temp
+TEMP = C:\Users\AURELI~1.WAN\AppData\Local\Temp
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\a1e0e28d0f6d1809a53efc7ce98ffd95-1.70.0-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\a893007ca3233bb19adc74d664f1abcb-1.70.1-main-sock
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # default
@@ -203,11 +210,13 @@ SESSIONNAME = Console
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
 # environment
-PROCESSOR_REVISION = 9705
+REGIONCODE = APJ
 # environment
-PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 151 Stepping 5, GenuineIntel
+PROCESSOR_REVISION = 8e0c
+# environment
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
 # variable set hash-table stats:
-# Load=97/1024=9%, Rehash=0, Collisions=9/123=7%
+# Load=101/1024=10%, Rehash=0, Collisions=9/129=7%
 
 # Pattern-specific Variable Values
 
@@ -215,9 +224,9 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 151 Stepping 5, GenuineIntel
 
 # Directories
 
-# . (key d:/Projects/golang/go-gqlgen-template, mtime 1660094205): 20 files, no impossibilities.
+# . (key c:/Users/aurelius.wang/work/go-gqlgen-template, mtime 1660190565): 21 files, no impossibilities.
 
-# 20 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -225,10 +234,24 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 151 Stepping 5, GenuineIntel
 
 # Files
 
+start:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 3):
+	air
+
+migrate-schema:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 6):
+	go run ./cmd/migration/main.go
+
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-09 20:04:49
+#  Last modified 2022-08-11 11:02:45
 #  File has been updated.
 #  Successfully updated.
 
@@ -245,20 +268,28 @@ all:
 #  File does not exist.
 #  File has not been updated.
 
+run:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 9):
+	go run ./cmd/app/main.go
+
 # files hash-table stats:
-# Load=4/1024=0%, Rehash=0, Collisions=0/14=0%
+# Load=7/1024=1%, Rehash=0, Collisions=0/17=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 164 B / avg = 7 B
-# current buf: size = 8174 B / used = 164 B / count = 23 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 27 / storage = 187 B / avg = 6 B
+# current buf: size = 8174 B / 
+ used = 187 B / count = 27 / avg = 6 B
 
-# strcache performance: lookups = 27 / hit rate = 14%
+# strcache performance: lookups = 34 / hit rate = 20%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=0/27=0%
-# Finished Make data base on Wed Aug 10 08:16:46 2022
+# Load=27/8192=0%, Rehash=0, Collisions=0/34=0%
+# Finished Make data base on Thu Aug 11 14:06:58 2022
 
  

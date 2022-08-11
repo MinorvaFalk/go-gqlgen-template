@@ -17,6 +17,18 @@ type Todo struct {
 // Fields of the Todo.
 func (Todo) Fields() []ent.Field {
 	return []ent.Field{
+		// ULID Implementation
+		// ...
+		// field.String("id").
+		// 	GoType(ulid.ID("")).
+		// 	DefaultFunc(func () ulid.ID  {
+		// 		return ulid.MustNew("")
+		// 	}),
+		// field.String("user_id").
+		// 	GoType(ulid.ID("")).
+		// 	DefaultFunc(func () ulid.ID {
+		// 		return ulid.MustNew("")
+		// 	}),
 		field.Int("user_id").Optional(),
 		field.String("title").Default(""),
 		field.Bool("completed").Default(false),

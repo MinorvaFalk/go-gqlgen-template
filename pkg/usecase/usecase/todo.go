@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"go-gqlgen-template/ent"
 	"go-gqlgen-template/pkg/entity/model"
 	"go-gqlgen-template/pkg/usecase/repository"
 )
@@ -13,6 +14,7 @@ type todo struct {
 type Todo interface {
 	Get(ctx context.Context, id *int) (*model.Todo, error)
 	GetAll(ctx context.Context) ([]*model.Todo, error)
+	Create(ctx context.Context, input ent.CreateTodoInput) (*model.Todo, error)
 }
 
 func NewTodoUseCase(r repository.Todo) Todo {
@@ -25,4 +27,8 @@ func (t *todo) Get(ctx context.Context, id *int) (*model.Todo, error) {
 
 func (t *todo) GetAll(ctx context.Context) ([]*model.Todo, error) {
 	return t.todoRepository.GetAll(ctx)
+}
+
+func (t *todo) Create(ctx context.Context, input ent.CreateTodoInput) (*model.Todo, error) {
+	return t.todoRepository.Create(ctx, input)
 }

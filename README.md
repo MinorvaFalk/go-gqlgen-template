@@ -2,6 +2,15 @@ Go-Gqlgen-Template
 ---
 Template for developing Go Graphql API using Gqlgen
 
+## TODO List 📃
+
+- [ ] TODO #1
+- [ ] TODO #2
+- [ ] TODO #3
+
+
+## Getting Started 🚀
+
 Rover Command:
 ```bash
 # Upload schema

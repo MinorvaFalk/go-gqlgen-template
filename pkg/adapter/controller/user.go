@@ -13,6 +13,7 @@ type user struct {
 type User interface {
 	Get(ctx context.Context, id *int) (*model.User, error)
 	GetAll(ctx context.Context) ([]*model.User, error)
+	GetTodo(ctx context.Context, id *int) ([]*model.Todo, error)
 }
 
 func NewUserController(uu usecase.User) User {
@@ -25,4 +26,8 @@ func (u *user) Get(ctx context.Context, id *int) (*model.User, error) {
 
 func (u *user) GetAll(ctx context.Context) ([]*model.User, error) {
 	return u.userUseCase.GetAll(ctx)
+}
+
+func (u *user) GetTodo(ctx context.Context, id *int) ([]*model.Todo, error) {
+	return u.userUseCase.GetTodo(ctx, id)
 }

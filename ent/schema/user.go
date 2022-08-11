@@ -17,6 +17,13 @@ type User struct {
 // Fields of the User.
 func (User) Fields() []ent.Field {
 	return []ent.Field{
+		// ULID Implementation
+		// ...
+		// field.String("id").
+		// 	GoType(ulid.ID("")).
+		// 	DefaultFunc(func () ulid.ID  {
+		// 		return ulid.MustNew("")
+		// 	}),
 		field.String("name").
 			NotEmpty().
 			MaxLen(255),

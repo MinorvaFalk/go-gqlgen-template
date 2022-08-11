@@ -8,17 +8,17 @@ import (
 	"fmt"
 	"go-gqlgen-template/ent"
 	"go-gqlgen-template/graph/generated"
-	model1 "go-gqlgen-template/pkg/entity/model"
+	"go-gqlgen-template/pkg/entity/model"
 	"strconv"
 )
 
 // AddUser is the resolver for the addUser field.
-func (r *mutationResolver) AddUser(ctx context.Context, input ent.CreateUserInput) (*model1.MutationResponse, error) {
+func (r *mutationResolver) AddUser(ctx context.Context, input ent.CreateUserInput) (*model.MutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // UpdateUser is the resolver for the updateUser field.
-func (r *mutationResolver) UpdateUser(ctx context.Context, input ent.UpdateUserInput) (*model1.MutationResponse, error) {
+func (r *mutationResolver) UpdateUser(ctx context.Context, input ent.UpdateUserInput) (*model.MutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -39,7 +39,12 @@ func (r *queryResolver) GetUser(ctx context.Context, id string) (*ent.User, erro
 
 // AllUser is the resolver for the allUser field.
 func (r *queryResolver) AllUser(ctx context.Context) ([]*ent.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	u, err := r.controller.User.GetAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return u, nil
 }
 
 // CreateAt is the resolver for the createAt field.
@@ -54,7 +59,12 @@ func (r *userResolver) UpdateAt(ctx context.Context, obj *ent.User) (string, err
 
 // Todo is the resolver for the todo field.
 func (r *userResolver) Todo(ctx context.Context, obj *ent.User) ([]*ent.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	t, err := r.controller.User.GetTodo(ctx, &obj.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	return t, nil
 }
 
 // ID is the resolver for the id field.

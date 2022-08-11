@@ -29,3 +29,6 @@ go.work
 # Ignore log
 logs
 *.log
+
+# tmp folder for air live reloading
+tmp

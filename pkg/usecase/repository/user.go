@@ -8,4 +8,5 @@ import (
 type User interface {
 	Get(ctx context.Context, id *int) (*model.User, error)
 	GetAll(ctx context.Context) ([]*model.User, error)
+	GetTodo(ctx context.Context, id *int) ([]*model.Todo, error)
 }
