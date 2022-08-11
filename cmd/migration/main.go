@@ -2,13 +2,16 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"go-gqlgen-template/config"
 	"go-gqlgen-template/ent"
 	"go-gqlgen-template/ent/migrate"
 	"log"
 
-	_ "github.com/lib/pq"
+	"entgo.io/ent/dialect"
+	entsql "entgo.io/ent/dialect/sql"
+	_ "github.com/jackc/pgx/v4/stdlib"
 )
 
 func main() {
@@ -37,13 +40,17 @@ func newClient() (*ent.Client, error) {
 	var entOptions []ent.Option
 	entOptions = append(entOptions, ent.Debug())
 
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
-		config.C.Database.DBHost,
+	// urlExample := "postgres://username:password@localhost:5432/database_name"
+	dsn := fmt.Sprintf("postgres://%s:%s@%s/%s",
 		config.C.Database.DBUser,
 		config.C.Database.DBPassword,
+		config.C.Database.DBHost,
 		config.C.Database.DBName,
-		config.C.Database.DBPort,
 	)
 
-	return ent.Open("postgres", dsn, entOptions...)
+	db, err := sql.Open("pgx", dsn)
+
+	// Create an ent.Driver from `db`.
+	drv := entsql.OpenDB(dialect.Postgres, db)
+	return ent.NewClient(ent.Driver(drv)), err
 }

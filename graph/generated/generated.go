@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	tools "go-gqlgen-template"
 	"go-gqlgen-template/ent"
+	"go-gqlgen-template/pkg/entity/model"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -96,10 +96,10 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateTodo(ctx context.Context, input ent.CreateTodoInput) (*tools.MutationResponse, error)
-	UpdateTodo(ctx context.Context, input ent.UpdateTodoInput) (*tools.MutationResponse, error)
-	AddUser(ctx context.Context, input ent.CreateUserInput) (*tools.MutationResponse, error)
-	UpdateUser(ctx context.Context, input ent.UpdateUserInput) (*tools.MutationResponse, error)
+	CreateTodo(ctx context.Context, input ent.CreateTodoInput) (*model.MutationResponse, error)
+	UpdateTodo(ctx context.Context, input ent.UpdateTodoInput) (*model.MutationResponse, error)
+	AddUser(ctx context.Context, input ent.CreateUserInput) (*model.MutationResponse, error)
+	UpdateUser(ctx context.Context, input ent.UpdateUserInput) (*model.MutationResponse, error)
 }
 type QueryResolver interface {
 	Example(ctx context.Context) (*string, error)
@@ -711,9 +711,9 @@ func (ec *executionContext) _Mutation_createTodo(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*tools.MutationResponse)
+	res := resTmp.(*model.MutationResponse)
 	fc.Result = res
-	return ec.marshalOMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚐMutationResponse(ctx, field.Selections, res)
+	return ec.marshalOMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚋpkgᚋentityᚋmodelᚐMutationResponse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createTodo(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -773,9 +773,9 @@ func (ec *executionContext) _Mutation_updateTodo(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*tools.MutationResponse)
+	res := resTmp.(*model.MutationResponse)
 	fc.Result = res
-	return ec.marshalOMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚐMutationResponse(ctx, field.Selections, res)
+	return ec.marshalOMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚋpkgᚋentityᚋmodelᚐMutationResponse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateTodo(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -838,9 +838,9 @@ func (ec *executionContext) _Mutation_addUser(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*tools.MutationResponse)
+	res := resTmp.(*model.MutationResponse)
 	fc.Result = res
-	return ec.marshalNMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚐMutationResponse(ctx, field.Selections, res)
+	return ec.marshalNMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚋpkgᚋentityᚋmodelᚐMutationResponse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_addUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -903,9 +903,9 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*tools.MutationResponse)
+	res := resTmp.(*model.MutationResponse)
 	fc.Result = res
-	return ec.marshalNMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚐMutationResponse(ctx, field.Selections, res)
+	return ec.marshalNMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚋpkgᚋentityᚋmodelᚐMutationResponse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -942,7 +942,7 @@ func (ec *executionContext) fieldContext_Mutation_updateUser(ctx context.Context
 	return fc, nil
 }
 
-func (ec *executionContext) _MutationResponse_code(ctx context.Context, field graphql.CollectedField, obj *tools.MutationResponse) (ret graphql.Marshaler) {
+func (ec *executionContext) _MutationResponse_code(ctx context.Context, field graphql.CollectedField, obj *model.MutationResponse) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_MutationResponse_code(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -983,7 +983,7 @@ func (ec *executionContext) fieldContext_MutationResponse_code(ctx context.Conte
 	return fc, nil
 }
 
-func (ec *executionContext) _MutationResponse_success(ctx context.Context, field graphql.CollectedField, obj *tools.MutationResponse) (ret graphql.Marshaler) {
+func (ec *executionContext) _MutationResponse_success(ctx context.Context, field graphql.CollectedField, obj *model.MutationResponse) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_MutationResponse_success(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1024,7 +1024,7 @@ func (ec *executionContext) fieldContext_MutationResponse_success(ctx context.Co
 	return fc, nil
 }
 
-func (ec *executionContext) _MutationResponse_message(ctx context.Context, field graphql.CollectedField, obj *tools.MutationResponse) (ret graphql.Marshaler) {
+func (ec *executionContext) _MutationResponse_message(ctx context.Context, field graphql.CollectedField, obj *model.MutationResponse) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_MutationResponse_message(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1065,7 +1065,7 @@ func (ec *executionContext) fieldContext_MutationResponse_message(ctx context.Co
 	return fc, nil
 }
 
-func (ec *executionContext) _MutationResponse_data(ctx context.Context, field graphql.CollectedField, obj *tools.MutationResponse) (ret graphql.Marshaler) {
+func (ec *executionContext) _MutationResponse_data(ctx context.Context, field graphql.CollectedField, obj *model.MutationResponse) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_MutationResponse_data(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4248,7 +4248,7 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 var mutationResponseImplementors = []string{"MutationResponse"}
 
-func (ec *executionContext) _MutationResponse(ctx context.Context, sel ast.SelectionSet, obj *tools.MutationResponse) graphql.Marshaler {
+func (ec *executionContext) _MutationResponse(ctx context.Context, sel ast.SelectionSet, obj *model.MutationResponse) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, mutationResponseImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -5045,11 +5045,11 @@ func (ec *executionContext) marshalNID2ᚖint(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) marshalNMutationResponse2goᚑgqlgenᚑtemplateᚐMutationResponse(ctx context.Context, sel ast.SelectionSet, v tools.MutationResponse) graphql.Marshaler {
+func (ec *executionContext) marshalNMutationResponse2goᚑgqlgenᚑtemplateᚋpkgᚋentityᚋmodelᚐMutationResponse(ctx context.Context, sel ast.SelectionSet, v model.MutationResponse) graphql.Marshaler {
 	return ec._MutationResponse(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚐMutationResponse(ctx context.Context, sel ast.SelectionSet, v *tools.MutationResponse) graphql.Marshaler {
+func (ec *executionContext) marshalNMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚋpkgᚋentityᚋmodelᚐMutationResponse(ctx context.Context, sel ast.SelectionSet, v *model.MutationResponse) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -5451,7 +5451,7 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	return res
 }
 
-func (ec *executionContext) marshalOMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚐMutationResponse(ctx context.Context, sel ast.SelectionSet, v *tools.MutationResponse) graphql.Marshaler {
+func (ec *executionContext) marshalOMutationResponse2ᚖgoᚑgqlgenᚑtemplateᚋpkgᚋentityᚋmodelᚐMutationResponse(ctx context.Context, sel ast.SelectionSet, v *model.MutationResponse) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

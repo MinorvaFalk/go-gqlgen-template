@@ -6,19 +6,19 @@ package graph
 import (
 	"context"
 	"fmt"
-	tools "go-gqlgen-template"
 	"go-gqlgen-template/ent"
 	"go-gqlgen-template/ent/todo"
+	"go-gqlgen-template/pkg/entity/model"
 	"strconv"
 )
 
 // CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input ent.CreateTodoInput) (*tools.MutationResponse, error) {
+func (r *mutationResolver) CreateTodo(ctx context.Context, input ent.CreateTodoInput) (*model.MutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // UpdateTodo is the resolver for the updateTodo field.
-func (r *mutationResolver) UpdateTodo(ctx context.Context, input ent.UpdateTodoInput) (*tools.MutationResponse, error) {
+func (r *mutationResolver) UpdateTodo(ctx context.Context, input ent.UpdateTodoInput) (*model.MutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

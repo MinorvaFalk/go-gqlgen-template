@@ -14,3 +14,8 @@ rover subgraph publish go-gqlgen-template@current \
 --name mock --schema - \
 --routing-url http://localhost:4001/query
 ```
+
+### Starting Application
+```bash
+make run
+```

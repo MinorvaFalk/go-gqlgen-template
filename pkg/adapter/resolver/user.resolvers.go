@@ -6,19 +6,19 @@ package resolver
 import (
 	"context"
 	"fmt"
-	tools "go-gqlgen-template"
 	"go-gqlgen-template/ent"
 	"go-gqlgen-template/graph/generated"
+	model1 "go-gqlgen-template/pkg/entity/model"
 	"strconv"
 )
 
 // AddUser is the resolver for the addUser field.
-func (r *mutationResolver) AddUser(ctx context.Context, input ent.CreateUserInput) (*tools.MutationResponse, error) {
+func (r *mutationResolver) AddUser(ctx context.Context, input ent.CreateUserInput) (*model1.MutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // UpdateUser is the resolver for the updateUser field.
-func (r *mutationResolver) UpdateUser(ctx context.Context, input ent.UpdateUserInput) (*tools.MutationResponse, error) {
+func (r *mutationResolver) UpdateUser(ctx context.Context, input ent.UpdateUserInput) (*model1.MutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

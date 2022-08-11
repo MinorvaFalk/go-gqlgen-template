@@ -20,7 +20,6 @@ type ConfigOption struct {
 type config struct {
 	Database struct {
 		DBHost     string `mapstructure:"host"`
-		DBPort     string `mapstructure:"port"`
 		DBName     string `mapstructure:"dbname"`
 		DBUser     string `mapstructure:"user"`
 		DBPassword string `mapstructure:"password"`

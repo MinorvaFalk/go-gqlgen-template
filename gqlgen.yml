@@ -13,9 +13,9 @@ federation:
   package: generated
 
 # Where should any generated models go?
-# model:
-#   filename: graph/model/models_gen.go
-#   package: model
+model:
+  filename: pkg/entity/model/models_gen.go
+  package: model
 
 # Where should the resolver implementations go?
 resolver:
