@@ -7,44 +7,41 @@ import (
 	"context"
 	"fmt"
 	"go-gqlgen-template/ent"
+	"go-gqlgen-template/ent/schema/ulid"
 	"go-gqlgen-template/graph/generated"
+	"go-gqlgen-template/pkg/adapter/handler"
 	"go-gqlgen-template/pkg/entity/model"
-	"strconv"
+	"go-gqlgen-template/utils"
 )
 
 // AddUser is the resolver for the addUser field.
-func (r *mutationResolver) AddUser(ctx context.Context, input ent.CreateUserInput) (*model.MutationResponse, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) AddUser(ctx context.Context, input ent.CreateUserInput) (*model.UserMutationResponse, error) {
+	u, err := r.controller.User.Create(ctx, input)
+	if err != nil {
+		return nil, handler.HandleError(ctx, err)
+	}
+
+	return &model.UserMutationResponse{
+		Code:    &utils.SuccessCode,
+		Success: &utils.SuccessStatus,
+		Message: &utils.SuccessMessage,
+		Data:    u,
+	}, nil
 }
 
 // UpdateUser is the resolver for the updateUser field.
-func (r *mutationResolver) UpdateUser(ctx context.Context, input ent.UpdateUserInput) (*model.MutationResponse, error) {
+func (r *mutationResolver) UpdateUser(ctx context.Context, input ent.UpdateUserInput) (*model.UserMutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-// GetUser is the resolver for the getUser field.
-func (r *queryResolver) GetUser(ctx context.Context, id string) (*ent.User, error) {
-	i, err := strconv.Atoi(id)
-	if err != nil {
-		return nil, err
-	}
-
-	u, err := r.controller.User.Get(ctx, &i)
-	if err != nil {
-		return nil, err
-	}
-
-	return u, nil
+// User is the resolver for the user field.
+func (r *queryResolver) User(ctx context.Context, id ulid.ID) (*ent.User, error) {
+	return r.controller.User.Get(ctx, &id)
 }
 
-// AllUser is the resolver for the allUser field.
-func (r *queryResolver) AllUser(ctx context.Context) ([]*ent.User, error) {
-	u, err := r.controller.User.GetAll(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	return u, nil
+// Users is the resolver for the users field.
+func (r *queryResolver) Users(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.UserWhereInput) (*ent.UserConnection, error) {
+	return r.controller.User.List(ctx, after, first, before, last, where)
 }
 
 // CreateAt is the resolver for the createAt field.
@@ -67,18 +64,7 @@ func (r *userResolver) Todo(ctx context.Context, obj *ent.User) ([]*ent.Todo, er
 	return t, nil
 }
 
-// ID is the resolver for the id field.
-func (r *createUserInputResolver) ID(ctx context.Context, obj *ent.CreateUserInput, data string) error {
-	panic(fmt.Errorf("not implemented"))
-}
-
 // User returns generated.UserResolver implementation.
 func (r *Resolver) User() generated.UserResolver { return &userResolver{r} }
 
-// CreateUserInput returns generated.CreateUserInputResolver implementation.
-func (r *Resolver) CreateUserInput() generated.CreateUserInputResolver {
-	return &createUserInputResolver{r}
-}
-
 type userResolver struct{ *Resolver }
-type createUserInputResolver struct{ *Resolver }

@@ -4,6 +4,7 @@ package ent
 
 import (
 	"fmt"
+	"go-gqlgen-template/ent/schema/ulid"
 	"go-gqlgen-template/ent/todo"
 	"go-gqlgen-template/ent/user"
 	"strings"
@@ -16,9 +17,9 @@ import (
 type Todo struct {
 	config `json:"-"`
 	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	ID ulid.ID `json:"id,omitempty"`
 	// UserID holds the value of the "user_id" field.
-	UserID int `json:"user_id,omitempty"`
+	UserID ulid.ID `json:"user_id,omitempty"`
 	// Title holds the value of the "title" field.
 	Title string `json:"title,omitempty"`
 	// Completed holds the value of the "completed" field.
@@ -63,12 +64,12 @@ func (*Todo) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case todo.FieldCompleted:
 			values[i] = new(sql.NullBool)
-		case todo.FieldID, todo.FieldUserID:
-			values[i] = new(sql.NullInt64)
 		case todo.FieldTitle:
 			values[i] = new(sql.NullString)
 		case todo.FieldCreatedAt, todo.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
+		case todo.FieldID, todo.FieldUserID:
+			values[i] = new(ulid.ID)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Todo", columns[i])
 		}
@@ -85,16 +86,16 @@ func (t *Todo) assignValues(columns []string, values []interface{}) error {
 	for i := range columns {
 		switch columns[i] {
 		case todo.FieldID:
-			value, ok := values[i].(*sql.NullInt64)
-			if !ok {
-				return fmt.Errorf("unexpected type %T for field id", value)
+			if value, ok := values[i].(*ulid.ID); !ok {
+				return fmt.Errorf("unexpected type %T for field id", values[i])
+			} else if value != nil {
+				t.ID = *value
 			}
-			t.ID = int(value.Int64)
 		case todo.FieldUserID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+			if value, ok := values[i].(*ulid.ID); !ok {
 				return fmt.Errorf("unexpected type %T for field user_id", values[i])
-			} else if value.Valid {
-				t.UserID = int(value.Int64)
+			} else if value != nil {
+				t.UserID = *value
 			}
 		case todo.FieldTitle:
 			if value, ok := values[i].(*sql.NullString); !ok {

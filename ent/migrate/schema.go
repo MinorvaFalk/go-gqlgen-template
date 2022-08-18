@@ -10,12 +10,12 @@ import (
 var (
 	// TodosColumns holds the columns for the "todos" table.
 	TodosColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "title", Type: field.TypeString, Default: ""},
+		{Name: "id", Type: field.TypeString},
+		{Name: "title", Type: field.TypeString},
 		{Name: "completed", Type: field.TypeBool, Default: false},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime DEFAULT CURRENT_TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"}},
-		{Name: "user_id", Type: field.TypeInt, Nullable: true},
+		{Name: "user_id", Type: field.TypeString, Nullable: true},
 	}
 	// TodosTable holds the schema information for the "todos" table.
 	TodosTable = &schema.Table{
@@ -33,7 +33,7 @@ var (
 	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "id", Type: field.TypeString},
 		{Name: "name", Type: field.TypeString, Size: 255},
 		{Name: "username", Type: field.TypeString, Unique: true},
 		{Name: "email", Type: field.TypeString},

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"go-gqlgen-template/ent/predicate"
+	"go-gqlgen-template/ent/schema/ulid"
 	"go-gqlgen-template/ent/todo"
 	"go-gqlgen-template/ent/user"
 	"sync"
@@ -33,13 +34,13 @@ type TodoMutation struct {
 	config
 	op            Op
 	typ           string
-	id            *int
+	id            *ulid.ID
 	title         *string
 	completed     *bool
 	created_at    *time.Time
 	updated_at    *time.Time
 	clearedFields map[string]struct{}
-	user          *int
+	user          *ulid.ID
 	cleareduser   bool
 	done          bool
 	oldValue      func(context.Context) (*Todo, error)
@@ -66,7 +67,7 @@ func newTodoMutation(c config, op Op, opts ...todoOption) *TodoMutation {
 }
 
 // withTodoID sets the ID field of the mutation.
-func withTodoID(id int) todoOption {
+func withTodoID(id ulid.ID) todoOption {
 	return func(m *TodoMutation) {
 		var (
 			err   error
@@ -116,9 +117,15 @@ func (m TodoMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of Todo entities.
+func (m *TodoMutation) SetID(id ulid.ID) {
+	m.id = &id
+}
+
 // ID returns the ID value in the mutation. Note that the ID is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *TodoMutation) ID() (id int, exists bool) {
+func (m *TodoMutation) ID() (id ulid.ID, exists bool) {
 	if m.id == nil {
 		return
 	}
@@ -129,12 +136,12 @@ func (m *TodoMutation) ID() (id int, exists bool) {
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *TodoMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *TodoMutation) IDs(ctx context.Context) ([]ulid.ID, error) {
 	switch {
 	case m.op.Is(OpUpdateOne | OpDeleteOne):
 		id, exists := m.ID()
 		if exists {
-			return []int{id}, nil
+			return []ulid.ID{id}, nil
 		}
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
@@ -145,12 +152,12 @@ func (m *TodoMutation) IDs(ctx context.Context) ([]int, error) {
 }
 
 // SetUserID sets the "user_id" field.
-func (m *TodoMutation) SetUserID(i int) {
-	m.user = &i
+func (m *TodoMutation) SetUserID(u ulid.ID) {
+	m.user = &u
 }
 
 // UserID returns the value of the "user_id" field in the mutation.
-func (m *TodoMutation) UserID() (r int, exists bool) {
+func (m *TodoMutation) UserID() (r ulid.ID, exists bool) {
 	v := m.user
 	if v == nil {
 		return
@@ -161,7 +168,7 @@ func (m *TodoMutation) UserID() (r int, exists bool) {
 // OldUserID returns the old "user_id" field's value of the Todo entity.
 // If the Todo object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *TodoMutation) OldUserID(ctx context.Context) (v int, err error) {
+func (m *TodoMutation) OldUserID(ctx context.Context) (v ulid.ID, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
 	}
@@ -350,7 +357,7 @@ func (m *TodoMutation) UserCleared() bool {
 // UserIDs returns the "user" edge IDs in the mutation.
 // Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
 // UserID instead. It exists only for internal usage by the builders.
-func (m *TodoMutation) UserIDs() (ids []int) {
+func (m *TodoMutation) UserIDs() (ids []ulid.ID) {
 	if id := m.user; id != nil {
 		ids = append(ids, *id)
 	}
@@ -445,7 +452,7 @@ func (m *TodoMutation) OldField(ctx context.Context, name string) (ent.Value, er
 func (m *TodoMutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case todo.FieldUserID:
-		v, ok := value.(int)
+		v, ok := value.(ulid.ID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -486,16 +493,13 @@ func (m *TodoMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *TodoMutation) AddedFields() []string {
-	var fields []string
-	return fields
+	return nil
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *TodoMutation) AddedField(name string) (ent.Value, bool) {
-	switch name {
-	}
 	return nil, false
 }
 
@@ -640,7 +644,7 @@ type UserMutation struct {
 	config
 	op            Op
 	typ           string
-	id            *int
+	id            *ulid.ID
 	name          *string
 	username      *string
 	email         *string
@@ -649,8 +653,8 @@ type UserMutation struct {
 	created_at    *time.Time
 	updated_at    *time.Time
 	clearedFields map[string]struct{}
-	todo          map[int]struct{}
-	removedtodo   map[int]struct{}
+	todo          map[ulid.ID]struct{}
+	removedtodo   map[ulid.ID]struct{}
 	clearedtodo   bool
 	done          bool
 	oldValue      func(context.Context) (*User, error)
@@ -677,7 +681,7 @@ func newUserMutation(c config, op Op, opts ...userOption) *UserMutation {
 }
 
 // withUserID sets the ID field of the mutation.
-func withUserID(id int) userOption {
+func withUserID(id ulid.ID) userOption {
 	return func(m *UserMutation) {
 		var (
 			err   error
@@ -727,9 +731,15 @@ func (m UserMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of User entities.
+func (m *UserMutation) SetID(id ulid.ID) {
+	m.id = &id
+}
+
 // ID returns the ID value in the mutation. Note that the ID is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *UserMutation) ID() (id int, exists bool) {
+func (m *UserMutation) ID() (id ulid.ID, exists bool) {
 	if m.id == nil {
 		return
 	}
@@ -740,12 +750,12 @@ func (m *UserMutation) ID() (id int, exists bool) {
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *UserMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *UserMutation) IDs(ctx context.Context) ([]ulid.ID, error) {
 	switch {
 	case m.op.Is(OpUpdateOne | OpDeleteOne):
 		id, exists := m.ID()
 		if exists {
-			return []int{id}, nil
+			return []ulid.ID{id}, nil
 		}
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
@@ -1021,9 +1031,9 @@ func (m *UserMutation) ResetUpdatedAt() {
 }
 
 // AddTodoIDs adds the "todo" edge to the Todo entity by ids.
-func (m *UserMutation) AddTodoIDs(ids ...int) {
+func (m *UserMutation) AddTodoIDs(ids ...ulid.ID) {
 	if m.todo == nil {
-		m.todo = make(map[int]struct{})
+		m.todo = make(map[ulid.ID]struct{})
 	}
 	for i := range ids {
 		m.todo[ids[i]] = struct{}{}
@@ -1041,9 +1051,9 @@ func (m *UserMutation) TodoCleared() bool {
 }
 
 // RemoveTodoIDs removes the "todo" edge to the Todo entity by IDs.
-func (m *UserMutation) RemoveTodoIDs(ids ...int) {
+func (m *UserMutation) RemoveTodoIDs(ids ...ulid.ID) {
 	if m.removedtodo == nil {
-		m.removedtodo = make(map[int]struct{})
+		m.removedtodo = make(map[ulid.ID]struct{})
 	}
 	for i := range ids {
 		delete(m.todo, ids[i])
@@ -1052,7 +1062,7 @@ func (m *UserMutation) RemoveTodoIDs(ids ...int) {
 }
 
 // RemovedTodo returns the removed IDs of the "todo" edge to the Todo entity.
-func (m *UserMutation) RemovedTodoIDs() (ids []int) {
+func (m *UserMutation) RemovedTodoIDs() (ids []ulid.ID) {
 	for id := range m.removedtodo {
 		ids = append(ids, id)
 	}
@@ -1060,7 +1070,7 @@ func (m *UserMutation) RemovedTodoIDs() (ids []int) {
 }
 
 // TodoIDs returns the "todo" edge IDs in the mutation.
-func (m *UserMutation) TodoIDs() (ids []int) {
+func (m *UserMutation) TodoIDs() (ids []ulid.ID) {
 	for id := range m.todo {
 		ids = append(ids, id)
 	}

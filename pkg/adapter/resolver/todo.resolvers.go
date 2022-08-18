@@ -7,19 +7,19 @@ import (
 	"context"
 	"fmt"
 	"go-gqlgen-template/ent"
+	"go-gqlgen-template/ent/schema/ulid"
 	"go-gqlgen-template/pkg/entity/model"
 	"go-gqlgen-template/utils"
-	"strconv"
 )
 
 // CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input ent.CreateTodoInput) (*model.MutationResponse, error) {
+func (r *mutationResolver) CreateTodo(ctx context.Context, input ent.CreateTodoInput) (model.MutationResponse, error) {
 	t, err := r.controller.Todo.Create(ctx, input)
 	if err != nil {
 		return nil, err
 	}
 
-	return &model.MutationResponse{
+	return &model.TodoMutationResponse{
 		Code:    &utils.SuccessCode,
 		Success: &utils.SuccessStatus,
 		Message: &utils.SuccessMessage,
@@ -28,7 +28,7 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input ent.CreateTodoI
 }
 
 // UpdateTodo is the resolver for the updateTodo field.
-func (r *mutationResolver) UpdateTodo(ctx context.Context, input ent.UpdateTodoInput) (*model.MutationResponse, error) {
+func (r *mutationResolver) UpdateTodo(ctx context.Context, input ent.UpdateTodoInput) (model.MutationResponse, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -43,13 +43,8 @@ func (r *queryResolver) AllTodo(ctx context.Context) ([]*ent.Todo, error) {
 }
 
 // GetTodo is the resolver for the getTodo field.
-func (r *queryResolver) GetTodo(ctx context.Context, id string) (*ent.Todo, error) {
-	i, err := strconv.Atoi(id)
-	if err != nil {
-		return nil, err
-	}
-
-	t, err := r.controller.Todo.Get(ctx, &i)
+func (r *queryResolver) GetTodo(ctx context.Context, id ulid.ID) (*ent.Todo, error) {
+	t, err := r.controller.Todo.Get(ctx, &id)
 	if err != nil {
 		return nil, err
 	}

@@ -12,7 +12,7 @@ type todo struct {
 }
 
 type Todo interface {
-	Get(ctx context.Context, id *int) (*model.Todo, error)
+	Get(ctx context.Context, id *model.ID) (*model.Todo, error)
 	GetAll(ctx context.Context) ([]*model.Todo, error)
 	Create(ctx context.Context, input ent.CreateTodoInput) (*ent.Todo, error)
 }
@@ -21,7 +21,7 @@ func NewTodoController(ut usecase.Todo) Todo {
 	return &todo{todoUseCase: ut}
 }
 
-func (t *todo) Get(ctx context.Context, id *int) (*model.Todo, error) {
+func (t *todo) Get(ctx context.Context, id *model.ID) (*model.Todo, error) {
 	return t.todoUseCase.Get(ctx, id)
 }
 

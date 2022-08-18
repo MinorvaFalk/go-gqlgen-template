@@ -8,47 +8,36 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug 11 14:06:58 2022
+# Make data base, printed on Thu Aug 18 10:02:49 2022
 
 # Variables
 
 # environment
-FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
-# environment
 SYSTEMDRIVE = C:
-# environment
-JAVA_HOME = C:\Program Files\Java\jdk-15.0.1
 # environment
 LC_ALL = C
 # environment
-USERPROFILE = C:\Users\aurelius.wang
+USERPROFILE = C:\Users\Minorva
 # environment
-LOCALAPPDATA = C:\Users\aurelius.wang\AppData\Local
+LOCALAPPDATA = C:\Users\Minorva\AppData\Local
 # environment
-VSCODE_CWD = C:\Users\aurelius.wang\AppData\Local\Programs\Microsoft VS Code
+VSCODE_CWD = C:\Users\Minorva\AppData\Local\Programs\Microsoft VS Code
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
-SYSTEMROOT = C:\WINDOWS
+SYSTEMROOT = C:\Windows
 # environment
 PROCESSOR_LEVEL = 6
 # environment
-PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
 # default
 MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
 # environment
-USERDNSDOMAIN = ENSEVAL.COM
-# environment
-GOPATH = C:\Users\aurelius.wang\go
-# environment
-PTSMINSTALLPATH_X86 = c:\Program Files (x86)\HP\HP ProtectTools Security Manager\Bin\
+GOPATH = C:\Users\Minorva\go
 # automatic
-@D = $(patsubst %/,%, 
-$(patsubst %\,%,$(dir $@)))
+@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_6432_FYSZYFFHTNZMFHZH
-# environment
-FPS_BROWSER_USER_PROFILE_STRING = Default
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_16624_QEIZIUKYCXLBYPAL
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -60,13 +49,13 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\aurelius.wang\AppData\Roaming\Code\CachedData\6d9b74a70ca9c7733b29f0456fd8195364076dda
+VSCODE_CODE_CACHE_PATH = C:\Users\Minorva\AppData\Roaming\Code\CachedData\6d9b74a70ca9c7733b29f0456fd8195364076dda
 # environment
 LANG = C
 # default
 .LOADED := 
 # environment
-TMP = C:\Users\AURELI~1.WAN\AppData\Local\Temp
+TMP = C:\Users\Minorva\AppData\Local\Temp
 # default
 .INCLUDE_DIRS = .
 # environment
@@ -74,9 +63,9 @@ PROCESSOR_ARCHITEW6432 = AMD64
 # makefile
 MAKEFLAGS = pqrR
 # environment
-ONEDRIVE = C:\Users\aurelius.wang\OneDrive
+ONEDRIVE = C:\Users\Minorva\OneDrive
 # makefile
-CURDIR := c:/Users/aurelius.wang/work/go-gqlgen-template
+CURDIR := d:/Projects/golang/go-gqlgen-template
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
@@ -96,17 +85,17 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 6432
+VSCODE_PID = 16624
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
-# environment
-ONLINESERVICES = Online Services
 # automatic
 *F = $(notdir $*)
 # automatic
 <D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+ONEDRIVECONSUMER = C:\Users\Minorva\OneDrive
 # default
 MAKE_HOST := Windows32
 # environment
@@ -114,25 +103,25 @@ PROGRAMDATA = C:\ProgramData
 # default
 SHELL := sh.exe
 # environment
-HOMEPATH = \Users\aurelius.wang
+HOMEPATH = \Users\Minorva
 # default
 MAKECMDGOALS := all
 # environment
 DRIVERDATA = C:\Windows\System32\Drivers\DriverData
 # environment
-COMSPEC = C:\WINDOWS\system32\cmd.exe
+COMSPEC = C:\Windows\system32\cmd.exe
 # environment
-WINDIR = C:\WINDOWS
+WINDIR = C:\Windows
 # environment
 MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
 # environment
-MAKE = C:\Program Files (x86)\GnuWin32\bin\make.exe
-# environment
-PATH = C:\Python310\Scripts\;C:\Python310\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python27\;C:\Python27\Scripts;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\openjdk-8u262-b10\bin;C:\Program Files\PuTTY\;C:\Program Files\Go\bin;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\PostgreSQL\13\bin;C:\Users\aurelius.wang\AppData\Local\Microsoft\WindowsApps;;C:\Users\aurelius.wang\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\aurelius.wang\go\bin;C:\Users\aurelius.wang\AppData\Roaming\npm
+PATH = C:\Python310\Scripts\;C:\Python310\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files (x86)\dotnet\;C:\Program Files\nodejs\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\PostgreSQL\14\bin;C:\Program Files\Go\bin;C:\Users\Minorva\AppData\Local\Microsoft\WindowsApps;;C:\Users\Minorva\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Minorva\AppData\Roaming\npm;C:\Users\Minorva\go\bin
 # environment
 ZES_ENABLE_SYSMAN = 1
 # environment
-COMPUTERNAME = EHODBSN026
+COMPUTERNAME = DESKTOP-LUMVFSA
 # default
 MAKEFILES := 
 # automatic
@@ -140,11 +129,11 @@ MAKEFILES :=
 # environment
 PROMPT = $P$G
 # environment
-PTSMINSTALLPATH = c:\Program Files\HP\HP ProtectTools Security Manager\Bin\
+CHOCOLATEYLASTPATHUPDATE = 132965413602807859
 # environment
-LOGONSERVER = \\INF-ADDC-01
+LOGONSERVER = \\DESKTOP-LUMVFSA
 # environment
-USERNAME = aurelius.wang
+USERNAME = Minorva
 # environment
 COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
 # automatic
@@ -158,7 +147,7 @@ PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-USERDOMAIN = ENSEVAL
+USERDOMAIN = DESKTOP-LUMVFSA
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -168,23 +157,23 @@ OS = Windows_NT
 # default
 MAKE_VERSION := 4.3
 # environment
-PLATFORMCODE = AN
+SDL_AUDIODRIVER = directsound
 # environment
 PROGRAMFILES(X86) = C:\Program Files (x86)
 # environment
-USERDOMAIN_ROAMINGPROFILE = ENSEVAL
+USERDOMAIN_ROAMINGPROFILE = DESKTOP-LUMVFSA
 # environment
-NUMBER_OF_PROCESSORS = 8
+NUMBER_OF_PROCESSORS = 12
 # environment
 PUBLIC = C:\Users\Public
 # environment
-APPDATA = C:\Users\aurelius.wang\AppData\Roaming
+APPDATA = C:\Users\Minorva\AppData\Roaming
 # environment
 HOMEDRIVE = C:
 # environment
 PROCESSOR_ARCHITECTURE = x86
 # environment
-GOMODCACHE = C:\Users\aurelius.wang\go\pkg\mod
+GOMODCACHE = C:\Users\Minorva\go\pkg\mod
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -192,9 +181,9 @@ COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-TEMP = C:\Users\AURELI~1.WAN\AppData\Local\Temp
+TEMP = C:\Users\Minorva\AppData\Local\Temp
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\a893007ca3233bb19adc74d664f1abcb-1.70.1-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\a1e0e28d0f6d1809a53efc7ce98ffd95-1.70.1-main-sock
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # default
@@ -210,13 +199,11 @@ SESSIONNAME = Console
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
 # environment
-REGIONCODE = APJ
+PROCESSOR_REVISION = 9705
 # environment
-PROCESSOR_REVISION = 8e0c
-# environment
-PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 151 Stepping 5, GenuineIntel
 # variable set hash-table stats:
-# Load=101/1024=10%, Rehash=0, Collisions=9/129=7%
+# Load=95/1024=9%, Rehash=0, Collisions=8/122=7%
 
 # Pattern-specific Variable Values
 
@@ -224,9 +211,9 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
 
 # Directories
 
-# . (key c:/Users/aurelius.wang/work/go-gqlgen-template, mtime 1660190565): 21 files, no impossibilities.
+# . (key d:/Projects/golang/go-gqlgen-template, mtime 1660650227): 22 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 22 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -251,7 +238,7 @@ migrate-schema:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-11 11:02:45
+#  Last modified 2022-08-11 09:06:56
 #  File has been updated.
 #  Successfully updated.
 
@@ -283,13 +270,12 @@ run:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 27 / storage = 187 B / avg = 6 B
-# current buf: size = 8174 B / 
- used = 187 B / count = 27 / avg = 6 B
+# strcache buffers: 1 (0) / strings = 28 / storage = 192 B / avg = 6 B
+# current buf: size = 8174 B / used = 192 B / count = 28 / avg = 6 B
 
-# strcache performance: lookups = 34 / hit rate = 20%
+# strcache performance: lookups = 35 / hit rate = 20%
 # hash-table stats:
-# Load=27/8192=0%, Rehash=0, Collisions=0/34=0%
-# Finished Make data base on Thu Aug 11 14:06:58 2022
+# Load=28/8192=0%, Rehash=0, Collisions=0/35=0%
+# Finished Make data base on Thu Aug 18 10:02:49 2022
 
  

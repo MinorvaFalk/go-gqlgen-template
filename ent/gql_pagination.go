@@ -7,6 +7,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"go-gqlgen-template/ent/schema/ulid"
 	"go-gqlgen-template/ent/todo"
 	"go-gqlgen-template/ent/user"
 	"io"
@@ -145,8 +146,8 @@ type PageInfo struct {
 
 // Cursor of an edge type.
 type Cursor struct {
-	ID    int   `msgpack:"i"`
-	Value Value `msgpack:"v,omitempty"`
+	ID    ulid.ID `msgpack:"i"`
+	Value Value   `msgpack:"v,omitempty"`
 }
 
 // MarshalGQL implements graphql.Marshaler interface.

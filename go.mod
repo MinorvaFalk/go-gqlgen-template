@@ -7,12 +7,12 @@ require (
 	entgo.io/ent v0.11.2
 	github.com/99designs/gqlgen v0.17.13
 	github.com/hashicorp/go-multierror v1.1.1
+	github.com/jackc/pgx/v4 v4.17.0
 	github.com/labstack/echo/v4 v4.7.2
-	github.com/lib/pq v1.10.6
+	github.com/oklog/ulid/v2 v2.1.0
 	github.com/spf13/viper v1.12.0
 	github.com/vektah/gqlparser/v2 v2.4.6
 	github.com/vmihailenco/msgpack/v5 v5.0.0-beta.9
-	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
 )
 
 require (
@@ -38,16 +38,16 @@ require (
 	github.com/jackc/pgproto3/v2 v2.3.1 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
 	github.com/jackc/pgtype v1.12.0 // indirect
-	github.com/jackc/pgx/v4 v4.17.0 // indirect
 	github.com/labstack/gommon v0.3.1 // indirect
+	github.com/lib/pq v1.10.6 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
-	github.com/oklog/ulid/v2 v2.1.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect

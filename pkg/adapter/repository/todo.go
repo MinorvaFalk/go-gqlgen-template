@@ -16,7 +16,7 @@ func NewTodoRepository(client *ent.Client) repository.Todo {
 	return &todoRepository{client: client}
 }
 
-func (r *todoRepository) Get(ctx context.Context, id *int) (*model.Todo, error) {
+func (r *todoRepository) Get(ctx context.Context, id *model.ID) (*model.Todo, error) {
 	t, err := r.client.Todo.Query().Where(todo.IDEQ(*id)).Only(ctx)
 	if err != nil {
 		return nil, err

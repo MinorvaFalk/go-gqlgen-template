@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"go-gqlgen-template/ent/predicate"
+	"go-gqlgen-template/ent/schema/ulid"
 	"go-gqlgen-template/ent/todo"
 	"go-gqlgen-template/ent/user"
 
@@ -29,15 +30,15 @@ func (tu *TodoUpdate) Where(ps ...predicate.Todo) *TodoUpdate {
 }
 
 // SetUserID sets the "user_id" field.
-func (tu *TodoUpdate) SetUserID(i int) *TodoUpdate {
-	tu.mutation.SetUserID(i)
+func (tu *TodoUpdate) SetUserID(u ulid.ID) *TodoUpdate {
+	tu.mutation.SetUserID(u)
 	return tu
 }
 
 // SetNillableUserID sets the "user_id" field if the given value is not nil.
-func (tu *TodoUpdate) SetNillableUserID(i *int) *TodoUpdate {
-	if i != nil {
-		tu.SetUserID(*i)
+func (tu *TodoUpdate) SetNillableUserID(u *ulid.ID) *TodoUpdate {
+	if u != nil {
+		tu.SetUserID(*u)
 	}
 	return tu
 }
@@ -51,14 +52,6 @@ func (tu *TodoUpdate) ClearUserID() *TodoUpdate {
 // SetTitle sets the "title" field.
 func (tu *TodoUpdate) SetTitle(s string) *TodoUpdate {
 	tu.mutation.SetTitle(s)
-	return tu
-}
-
-// SetNillableTitle sets the "title" field if the given value is not nil.
-func (tu *TodoUpdate) SetNillableTitle(s *string) *TodoUpdate {
-	if s != nil {
-		tu.SetTitle(*s)
-	}
 	return tu
 }
 
@@ -152,7 +145,7 @@ func (tu *TodoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Table:   todo.Table,
 			Columns: todo.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt,
+				Type:   field.TypeString,
 				Column: todo.FieldID,
 			},
 		},
@@ -187,7 +180,7 @@ func (tu *TodoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
+					Type:   field.TypeString,
 					Column: user.FieldID,
 				},
 			},
@@ -203,7 +196,7 @@ func (tu *TodoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
+					Type:   field.TypeString,
 					Column: user.FieldID,
 				},
 			},
@@ -233,15 +226,15 @@ type TodoUpdateOne struct {
 }
 
 // SetUserID sets the "user_id" field.
-func (tuo *TodoUpdateOne) SetUserID(i int) *TodoUpdateOne {
-	tuo.mutation.SetUserID(i)
+func (tuo *TodoUpdateOne) SetUserID(u ulid.ID) *TodoUpdateOne {
+	tuo.mutation.SetUserID(u)
 	return tuo
 }
 
 // SetNillableUserID sets the "user_id" field if the given value is not nil.
-func (tuo *TodoUpdateOne) SetNillableUserID(i *int) *TodoUpdateOne {
-	if i != nil {
-		tuo.SetUserID(*i)
+func (tuo *TodoUpdateOne) SetNillableUserID(u *ulid.ID) *TodoUpdateOne {
+	if u != nil {
+		tuo.SetUserID(*u)
 	}
 	return tuo
 }
@@ -255,14 +248,6 @@ func (tuo *TodoUpdateOne) ClearUserID() *TodoUpdateOne {
 // SetTitle sets the "title" field.
 func (tuo *TodoUpdateOne) SetTitle(s string) *TodoUpdateOne {
 	tuo.mutation.SetTitle(s)
-	return tuo
-}
-
-// SetNillableTitle sets the "title" field if the given value is not nil.
-func (tuo *TodoUpdateOne) SetNillableTitle(s *string) *TodoUpdateOne {
-	if s != nil {
-		tuo.SetTitle(*s)
-	}
 	return tuo
 }
 
@@ -369,7 +354,7 @@ func (tuo *TodoUpdateOne) sqlSave(ctx context.Context) (_node *Todo, err error) 
 			Table:   todo.Table,
 			Columns: todo.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt,
+				Type:   field.TypeString,
 				Column: todo.FieldID,
 			},
 		},
@@ -421,7 +406,7 @@ func (tuo *TodoUpdateOne) sqlSave(ctx context.Context) (_node *Todo, err error) 
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
+					Type:   field.TypeString,
 					Column: user.FieldID,
 				},
 			},
@@ -437,7 +422,7 @@ func (tuo *TodoUpdateOne) sqlSave(ctx context.Context) (_node *Todo, err error) 
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
+					Type:   field.TypeString,
 					Column: user.FieldID,
 				},
 			},

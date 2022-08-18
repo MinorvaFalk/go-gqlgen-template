@@ -2,9 +2,28 @@
 
 package model
 
-type MutationResponse struct {
-	Code    *int        `json:"code"`
-	Success *bool       `json:"success"`
-	Message *string     `json:"message"`
-	Data    interface{} `json:"data"`
+import (
+	"go-gqlgen-template/ent"
+)
+
+type MutationResponse interface {
+	IsMutationResponse()
 }
+
+type TodoMutationResponse struct {
+	Code    *int      `json:"code"`
+	Success *bool     `json:"success"`
+	Message *string   `json:"message"`
+	Data    *ent.Todo `json:"data"`
+}
+
+func (TodoMutationResponse) IsMutationResponse() {}
+
+type UserMutationResponse struct {
+	Code    *int      `json:"code"`
+	Success *bool     `json:"success"`
+	Message *string   `json:"message"`
+	Data    *ent.User `json:"data"`
+}
+
+func (UserMutationResponse) IsMutationResponse() {}

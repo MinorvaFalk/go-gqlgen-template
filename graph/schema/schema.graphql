@@ -1,4 +1,6 @@
 scalar Any
+scalar Cursor
+scalar Time
 
 "Custom directive to force resolver"
 directive @goField(
@@ -6,15 +8,26 @@ directive @goField(
 	name: String
 ) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
 
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: Cursor
+  endCursor: Cursor
+}
+
 type Query {
     example: String
+    node(id: ID!): Node
 }
 
 type Mutation
 
-type MutationResponse {
+interface MutationResponse {
   code: Int
   success: Boolean
   message: String
-  data: Any
+}
+
+interface Node {
+  id: ID!
 }

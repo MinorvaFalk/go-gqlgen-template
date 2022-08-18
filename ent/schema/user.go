@@ -1,6 +1,8 @@
 package schema
 
 import (
+	"go-gqlgen-template/ent/schema/ulid"
+	"go-gqlgen-template/pkg/const/globalid"
 	"time"
 
 	"entgo.io/ent"
@@ -19,11 +21,11 @@ func (User) Fields() []ent.Field {
 	return []ent.Field{
 		// ULID Implementation
 		// ...
-		// field.String("id").
-		// 	GoType(ulid.ID("")).
-		// 	DefaultFunc(func () ulid.ID  {
-		// 		return ulid.MustNew("")
-		// 	}),
+		field.String("id").
+			GoType(ulid.ID("")).
+			DefaultFunc(func() ulid.ID {
+				return ulid.MustNew(globalid.New().User.Prefix)
+			}),
 		field.String("name").
 			NotEmpty().
 			MaxLen(255),

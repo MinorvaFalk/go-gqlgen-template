@@ -1,4 +1,4 @@
-type User {
+type User implements Node {
     id: ID!
     name: String!
     username: String!
@@ -10,8 +10,14 @@ type User {
     todo: [Todo] @goField(forceResolver: true)
 }
 
+type UserMutationResponse implements MutationResponse {
+    code: Int
+    success: Boolean
+    message: String
+    data: User
+}
+
 input CreateUserInput {
-    id: ID!
     name: String!
     username: String!
     email: String!
@@ -28,11 +34,22 @@ input UpdateUserInput {
 }
 
 extend type Query {
-    getUser(id: ID!): User
-    allUser: [User]
+    user(id: ID!): User
+    users(after: Cursor, first: Int, before: Cursor, last: Int, where: UserWhereInput): UserConnection
 }
 
 extend type Mutation {
-    addUser(input: CreateUserInput!): MutationResponse!
-    updateUser(input: UpdateUserInput!): MutationResponse!
+    addUser(input: CreateUserInput!): UserMutationResponse!
+    updateUser(input: UpdateUserInput!): UserMutationResponse!
+}
+
+type UserConnection {
+    totalCount: Int!
+    pageInfo: PageInfo!
+    edges: [UserEdge]
+}
+
+type UserEdge {
+    node: User
+    cursor: Cursor!
 }

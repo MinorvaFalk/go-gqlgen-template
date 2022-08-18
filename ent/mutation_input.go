@@ -3,23 +3,22 @@
 package ent
 
 import (
+	"go-gqlgen-template/ent/schema/ulid"
 	"time"
 )
 
 // CreateTodoInput represents a mutation input for creating todos.
 type CreateTodoInput struct {
-	Title     *string
+	Title     string
 	Completed *bool
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
-	UserID    *int
+	UserID    *ulid.ID
 }
 
 // Mutate applies the CreateTodoInput on the TodoCreate builder.
 func (i *CreateTodoInput) Mutate(m *TodoCreate) {
-	if v := i.Title; v != nil {
-		m.SetTitle(*v)
-	}
+	m.SetTitle(i.Title)
 	if v := i.Completed; v != nil {
 		m.SetCompleted(*v)
 	}
@@ -42,10 +41,10 @@ func (c *TodoCreate) SetInput(i CreateTodoInput) *TodoCreate {
 
 // UpdateTodoInput represents a mutation input for updating todos.
 type UpdateTodoInput struct {
-	ID        int
+	ID        ulid.ID
 	Title     *string
 	Completed *bool
-	UserID    *int
+	UserID    *ulid.ID
 	ClearUser bool
 }
 
@@ -86,7 +85,7 @@ type CreateUserInput struct {
 	Website   *string
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
-	TodoIDs   []int
+	TodoIDs   []ulid.ID
 }
 
 // Mutate applies the CreateUserInput on the UserCreate builder.
@@ -117,15 +116,15 @@ func (c *UserCreate) SetInput(i CreateUserInput) *UserCreate {
 
 // UpdateUserInput represents a mutation input for updating users.
 type UpdateUserInput struct {
-	ID            int
+	ID            ulid.ID
 	Name          *string
 	Username      *string
 	Email         *string
 	Phone         *string
 	Website       *string
 	ClearWebsite  bool
-	AddTodoIDs    []int
-	RemoveTodoIDs []int
+	AddTodoIDs    []ulid.ID
+	RemoveTodoIDs []ulid.ID
 }
 
 // Mutate applies the UpdateUserInput on the UserMutation.

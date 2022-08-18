@@ -1,8 +1,15 @@
-type Todo {
+type Todo implements Node {
     id: ID!
     title: String!
     completed: Boolean
     userId: ID!
+}
+
+type TodoMutationResponse implements MutationResponse {
+    code: Int
+    success: Boolean
+    message: String
+    data: Todo
 }
 
 input CreateTodoInput {

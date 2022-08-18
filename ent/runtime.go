@@ -4,6 +4,7 @@ package ent
 
 import (
 	"go-gqlgen-template/ent/schema"
+	"go-gqlgen-template/ent/schema/ulid"
 	"go-gqlgen-template/ent/todo"
 	"go-gqlgen-template/ent/user"
 	"time"
@@ -15,26 +16,26 @@ import (
 func init() {
 	todoFields := schema.Todo{}.Fields()
 	_ = todoFields
-	// todoDescTitle is the schema descriptor for title field.
-	todoDescTitle := todoFields[1].Descriptor()
-	// todo.DefaultTitle holds the default value on creation for the title field.
-	todo.DefaultTitle = todoDescTitle.Default.(string)
 	// todoDescCompleted is the schema descriptor for completed field.
-	todoDescCompleted := todoFields[2].Descriptor()
+	todoDescCompleted := todoFields[3].Descriptor()
 	// todo.DefaultCompleted holds the default value on creation for the completed field.
 	todo.DefaultCompleted = todoDescCompleted.Default.(bool)
 	// todoDescCreatedAt is the schema descriptor for created_at field.
-	todoDescCreatedAt := todoFields[3].Descriptor()
+	todoDescCreatedAt := todoFields[4].Descriptor()
 	// todo.DefaultCreatedAt holds the default value on creation for the created_at field.
 	todo.DefaultCreatedAt = todoDescCreatedAt.Default.(time.Time)
 	// todoDescUpdatedAt is the schema descriptor for updated_at field.
-	todoDescUpdatedAt := todoFields[4].Descriptor()
+	todoDescUpdatedAt := todoFields[5].Descriptor()
 	// todo.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	todo.DefaultUpdatedAt = todoDescUpdatedAt.Default.(func() time.Time)
+	// todoDescID is the schema descriptor for id field.
+	todoDescID := todoFields[0].Descriptor()
+	// todo.DefaultID holds the default value on creation for the id field.
+	todo.DefaultID = todoDescID.Default.(func() ulid.ID)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescName is the schema descriptor for name field.
-	userDescName := userFields[0].Descriptor()
+	userDescName := userFields[1].Descriptor()
 	// user.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	user.NameValidator = func() func(string) error {
 		validators := userDescName.Validators
@@ -52,15 +53,19 @@ func init() {
 		}
 	}()
 	// userDescUsername is the schema descriptor for username field.
-	userDescUsername := userFields[1].Descriptor()
+	userDescUsername := userFields[2].Descriptor()
 	// user.UsernameValidator is a validator for the "username" field. It is called by the builders before save.
 	user.UsernameValidator = userDescUsername.Validators[0].(func(string) error)
 	// userDescCreatedAt is the schema descriptor for created_at field.
-	userDescCreatedAt := userFields[5].Descriptor()
+	userDescCreatedAt := userFields[6].Descriptor()
 	// user.DefaultCreatedAt holds the default value on creation for the created_at field.
 	user.DefaultCreatedAt = userDescCreatedAt.Default.(time.Time)
 	// userDescUpdatedAt is the schema descriptor for updated_at field.
-	userDescUpdatedAt := userFields[6].Descriptor()
+	userDescUpdatedAt := userFields[7].Descriptor()
 	// user.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	user.DefaultUpdatedAt = userDescUpdatedAt.Default.(func() time.Time)
+	// userDescID is the schema descriptor for id field.
+	userDescID := userFields[0].Descriptor()
+	// user.DefaultID holds the default value on creation for the id field.
+	user.DefaultID = userDescID.Default.(func() ulid.ID)
 }

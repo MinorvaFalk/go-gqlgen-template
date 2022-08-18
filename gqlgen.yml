@@ -52,12 +52,16 @@ autobind:
 models:
   ID:
     model:
-      - github.com/99designs/gqlgen/graphql.ID
-      - github.com/99designs/gqlgen/graphql.Int
-      - github.com/99designs/gqlgen/graphql.Int64
-      - github.com/99designs/gqlgen/graphql.Int32
-  Int:
-    model:
-      - github.com/99designs/gqlgen/graphql.Int
-      - github.com/99designs/gqlgen/graphql.Int64
-      - github.com/99designs/gqlgen/graphql.Int32
+      - go-gqlgen-template/pkg/entity/model.ID
+      # - github.com/99designs/gqlgen/graphql.ID
+      # - github.com/99designs/gqlgen/graphql.Int
+      # - github.com/99designs/gqlgen/graphql.Int64
+      # - github.com/99designs/gqlgen/graphql.Int32
+  # Int:
+  #   model:
+  #     - github.com/99designs/gqlgen/graphql.Int
+  #     - github.com/99designs/gqlgen/graphql.Int64
+  #     - github.com/99designs/gqlgen/graphql.Int32
+  Node: 
+    model: 
+      - go-gqlgen-template/pkg/entity/model.Node
